@@ -2,20 +2,20 @@
 # CS110 Project Proposal
 # << Project Title >>
 ## CS 110 Final Project
-### << Semester, Year >>
+### Fall, 2021
 ### [Assignment Description](https://docs.google.com/document/d/1H4R6yLL7som1lglyXWZ04RvTp_RvRFCCBn6sqv-82ps/edit#)
 
 << [https://github.com/<repo>](#) >>
 
 << [link to demo presentation slides](#) >>
 
-### Team: << team name >>
-#### << Team Members >>
+### Team: Moore or less
+#### Senih Okuyucu, Sharan Saha, Clay Battle
 
 ***
 
 ## Project Description *(Software Lead)*
-<< Give an overview of your project >>
+our project is a trend guessing game, where a random hashtag from twitter is shown. This hastag, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random hashtag, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets associated with then the BT.
 
 ***    
 
@@ -55,15 +55,15 @@ The Project is broken down into the following file structure:
 ## Tasks and Responsibilities *(Software Lead)*
 * You must outline the team member roles and who was responsible for each class/method, both individual and collaborative.
 
-### Software Lead - << name >>
+### Software Lead - Senih O
 
 << Worked as integration specialist by... >>
 
-### Front End Specialist - << name >>
+### Front End Specialist - Clay B
 
 << Front-end lead conducted significant research on... >>
 
-### Back End Specialist - << name >>
+### Back End Specialist - Sharan S
 
 << The back end specialist... >>
 
