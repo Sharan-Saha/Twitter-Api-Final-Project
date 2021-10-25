@@ -17,6 +17,8 @@
 ## Project Description *(Software Lead)*
 our project is a trend guessing game, where a random hashtag from twitter is shown. This hastag, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random hashtag, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets associated with then the BT.
 
+We will start off working with pygame and once we have work that fulfills the requirements of the project we will incorporate our work into a website and ideally an app. 
+
 ***    
 
 ## User Interface Design *(Front End Specialist)*
