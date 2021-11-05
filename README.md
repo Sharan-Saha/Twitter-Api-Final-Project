@@ -23,6 +23,11 @@ We will start off working with pygame and once we have work that fulfills the re
 
 ## User Interface Design *(Front End Specialist)*
 * << A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program. >>
+	![Main Menu](assets/Main Menu.jpg)
+	![Game Over](assets/Game Over.jpg)
+	![Selection](assets/Selection.jpg)
+	![Settings](assets/Settings.jpg)
+
     * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
 * << You should also have a screenshot of each screen for your final GUI >>
 
