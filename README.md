@@ -41,7 +41,7 @@ We will start off working with pygame and once we have work that fulfills the re
         * a short description of the module
 * Class Interface Design
     * << A simple drawing that shows the class relationships in your code (see below for an example). >>
-        * ![class diagram](assets/class_diagram.jpg)
+        * ![general structure](assets/general_structure.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
     * << You should have a list of each of your classes with a description. >>
