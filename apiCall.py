@@ -1,4 +1,4 @@
-
+import tweepy
 from assets import apiCodes
 #Notes: tweepy import won't work , no clue why
 # you can access apiCodes.py by unzipping the Codes.zip file, ask me for the password
