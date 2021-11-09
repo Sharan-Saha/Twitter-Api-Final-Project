@@ -15,6 +15,7 @@ def getTrends(national_trends):
     return trends
 
 def main():
+    print(tweepy.__file__)
     codes = apiCodes.Codes().assignValues()
     auth = tweepy.OAuthHandler(codes["api_key"], codes["api_key_scrt"])
     auth.set_access_token(codes["access_tkn"], codes["access_tkn_scrt"])

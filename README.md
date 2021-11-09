@@ -51,9 +51,17 @@ We will start off working with pygame and once we have work that fulfills the re
 The Project is broken down into the following file structure:
 * main.py
 * bin
-    * <all of your python files should go here>
+    * apiCall.py
+    * apiCodes.py
+    * tweepy
+    * Codes.Zip
 * assets
-    * <all of your media, i.e. images, font files, etc, should go here)
+    * <all of your media, i.e. images, font files, etc,  gshouldo here)
+    * MainMenu.jpg
+    * Settings.jpg
+    * general_structure.jpg
+    * Selection.jpg
+    * GameOver.jpg
 * etc
     * <This is a catch all folder for things that are not part of your project, but you want to keep with your project. Your demo video should go here.>
 
