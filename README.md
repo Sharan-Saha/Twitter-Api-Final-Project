@@ -55,6 +55,7 @@ The Project is broken down into the following file structure:
     * apiCodes.py
     * tweepy
     * Codes.Zip
+    * trends.txt
 * assets
     * <all of your media, i.e. images, font files, etc,  gshouldo here)
     * MainMenu.jpg
