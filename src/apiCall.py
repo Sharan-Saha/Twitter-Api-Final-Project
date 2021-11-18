@@ -40,7 +40,7 @@ def main():
             trends = getTrends(callApi())
     else:
         trends = getTrends(callApi())
-    with open('trends.txt', 'w') as outfile:
+    with open('trends.json', 'w') as outfile:
         json.dump(trends, outfile)
     
 
