@@ -13,6 +13,11 @@ class Controller:
         self.background.fill([250, 250, 250])  # set the background to white
     
         self.state = "ON"
+        pygame.font.init()
+        myfont = pygame.font.SysFont('Comic Sans MS', 30)
+
+        self.textsurface = myfont.render('Some Text', False, (0, 0, 0))
+
 
         self.buttons = pygame.sprite.Group()
         self.buttons.add(button.Button("button1", 150, 500, "assets/Button.png"))
@@ -27,6 +32,7 @@ class Controller:
                 if event.type == pygame.KEYDOWN:
                     if(event.key == pygame.K_LEFT):
                         sys.exit()
+            self.screen.blit(self.textsurface,(0,0))
             self.screen.blit(self.background, (0,0))
             self.buttons.draw(self.screen)
             pygame.display.flip()
