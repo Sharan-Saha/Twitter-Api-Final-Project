@@ -17,7 +17,7 @@ class Button(pygame.sprite.Sprite):
     
     def hover(self, mouse_x, mouse_y):
         #not sure if this should be in this class or in the controller class
-        if mouse_x <= self.x + self.width and mouse_y <= self.y + height:
+        if mouse_x <= self.x + self.width and mouse_y <= self.y + self.height:
             return True
         else:
             return False
