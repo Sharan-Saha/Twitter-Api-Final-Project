@@ -41,10 +41,25 @@ if base_number == comparison_number:
 
 while (same_number == True):
     comparison_number = random.randrange(1, len(deck))
-    if comparison_number == base_number:
+    if comparison_number != base_number:
         same_number = False
+
+
 
 base = deck[base_number][0]
 comparison = deck[comparison_number][0]
+
+base_count = deck[base_number][1]
+comparison_count = deck[comparison_number][1]
         
-print(f"Which one do you think is more popular, {base} or {comparison}? ")
+user_choice = int(input(f"Which one do you think is more popular, (1){base} or (2){comparison}? "))
+if user_choice == 1:
+    if (base_count > comparison_count) == True:
+        print("correct")
+    else:
+        print("Incorrect")
+if user_choice == 2:
+    if (comparison_count > base_count) == True:
+        print("correct")
+    else:
+        print("Incorrect")
