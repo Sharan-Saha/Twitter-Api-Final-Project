@@ -26,7 +26,7 @@ class Controller:
 
         self.buttons = pygame.sprite.Group()
         self.button1 = button.Button(50, 500, "assets/Button.png", "Test")
-        self.button2 = button.Button(750, 500, "assets/Button.png", "Test2")
+        self.button2 = button.Button(650, 500, "assets/Button.png", "Test2")
         
         self.buttons.add(self.button1)
         self.buttons.add(self.button2)
@@ -93,7 +93,7 @@ class Controller:
        '''
        Sets up our menu.
        '''
-       self.main_menu = pygame_menu.Menu('Moore or Less!?', 800, 600, theme=pygame_menu.themes.THEME_BLUE)
+       self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
        self.main_menu.add.text_input('Name :', default='Player', onchange=self.update_name)
        self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
        self.main_menu.add.button('Play', self.start_the_game)
