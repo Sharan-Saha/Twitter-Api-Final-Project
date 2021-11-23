@@ -42,8 +42,6 @@ def main():
         trends = getTrends(callApi())
     with open(path, 'w') as outfile:
         json.dump(trends, outfile)
-    
-
 main()
 
 

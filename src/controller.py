@@ -1,4 +1,6 @@
 import sys
+import json
+from pathlib import Path
 import pygame
 import pygame_menu
 
@@ -22,6 +24,7 @@ class Controller:
         self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
 
+        self.score = 69
 
 
         self.buttons = pygame.sprite.Group()
@@ -112,14 +115,21 @@ class Controller:
          '''
         
          self.main_menu.disable()
-         self.state = "GAME"
          
+         path = Path('src/userinfo.json')
+         with open(path) as readfile:
+             self.leaderboard = json.load(readfile)
+         self.leaderboard.update({self.player_name: self.score})
+         with open(path, 'w') as outfile:
+            json.dump(self.leaderboard, outfile)
+         self.state = "GAME"
          
     def update_name(self, name):
         '''
         When player changes their name, the controller keeps track of that
         '''
         self.player_name = name
+        
     
     def set_mode(self, mode, option):
         '''
