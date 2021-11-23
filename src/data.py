@@ -1,12 +1,14 @@
 from os import write
 import json 
-# json_pointer = open("trends.json", "r")
-# objects = json.load(json_pointer)
-# objects.pop(0)
-# objects.pop()
+import random
+from random import choice
+json_pointer = open("trends.json", "r")
+deck = json.load(json_pointer)
+deck.pop(0)
+deck.pop()
 
 
-list = [1,2,3,4,5,6,7,8]
+
 
 class Comparison:
     def __init__(self, base_trend, comparison_trend):
@@ -18,13 +20,31 @@ class Comparison:
     
     def CompareTrends(self):
         score = 0
-        if objects[self.base_trend][1] > objects[self.comparison_trend][1]:
+        if deck[self.base_trend][1] > deck[self.comparison_trend][1]:
             score += 1 
         else:
             score = 0 
 
         return score
 
-c = Comparison(1, 0)
-print(str(c))
-print(c.CompareTrends())
+# for item_pair in deck:
+#     if "Giants" in item_pair:
+#         print("True")
+
+
+base_number = random.randrange(1, len(deck))
+comparison_number = random.randrange(1, len(deck))
+
+same_number = False
+if base_number == comparison_number:
+    same_number = True
+
+while (same_number == True):
+    comparison_number = random.randrange(1, len(deck))
+    if comparison_number == base_number:
+        same_number = False
+
+base = deck[base_number][0]
+comparison = deck[comparison_number][0]
+        
+print(f"Which one do you think is more popular, {base} or {comparison}? ")
