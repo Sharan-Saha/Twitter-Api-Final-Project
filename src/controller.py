@@ -5,7 +5,7 @@ import pygame_menu
 from src import button
 
 class Controller: 
-    def __init__(self, width = 800, height = 800):
+    def __init__(self, width = 1000, height = 800):
         pygame.init()
         self.width = width
         self.height = height
@@ -19,13 +19,17 @@ class Controller:
         self.current_mode = "Test"
         
         pygame.font.init()
-        myfont = pygame.font.SysFont('Comic Sans MS', 30)
-
-        self.textsurface = myfont.render('Some Text', False, (0, 0, 0))
+        self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
 
-        #self.buttons = pygame.sprite.Group()
-        #self.buttons.add(button.Button("button1", 150, 500, "assets/Button.png"))
+
+
+        self.buttons = pygame.sprite.Group()
+        self.button1 = button.Button(50, 500, "assets/Button.png", "Test")
+        self.button2 = button.Button(750, 500, "assets/Button.png", "Test2")
+        
+        self.buttons.add(self.button1)
+        self.buttons.add(self.button2)
 
     def mainLoop(self):
         '''
@@ -44,7 +48,6 @@ class Controller:
                 
             elif self.state == "LEADERBOARD":
                 self.leaderboardLoop()
-                print("hhhhhhh")
                 
             elif self.state == "END":
                 self.endLoop()
@@ -52,13 +55,34 @@ class Controller:
     def gameLoop(self):
         while self.state == "GAME":
             for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if(event.key == pygame.K_LEFT):
-                        sys.exit()
-            self.screen.blit(self.textsurface,(0,0))
-            self.screen.blit(self.background, (0,0))
             
+                if event.type == pygame.KEYDOWN:
+                    if(event.key == pygame.K_q):
+                        sys.exit()
+                if pygame.mouse.get_pressed()[0]:
+                    position = pygame.mouse.get_pos()
+            
+                    if self.button1.rect.collidepoint(position):
+                            print("YES!")
+                        
+                    elif self.button2.rect.collidepoint(position):
+                            print(self.state)
+                            self.state = "END"
+            
+            
+            #Puts background, button text, and buttons(rectangles) on the screen
+            self.screen.blit(self.background, (0, 0))
+            
+        
+    
             self.buttons.draw(self.screen)
+            
+            button1txt = self.font.render("button1", True, (250,50,50))
+            button2txt = self.font.render("End Screen", True, (250,50,50))
+            self.screen.blit(button1txt, self.button1.rect.topleft)
+            self.screen.blit(button2txt, self.button2.rect.topleft)
+            
+            
             pygame.display.flip()
         
     def settingsLoop(self):
@@ -71,7 +95,7 @@ class Controller:
        '''
        self.main_menu = pygame_menu.Menu('Moore or Less!?', 800, 600, theme=pygame_menu.themes.THEME_BLUE)
        self.main_menu.add.text_input('Name :', default='Player', onchange=self.update_name)
-       self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2)], onchange=self.set_mode)
+       self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
        self.main_menu.add.button('Play', self.start_the_game)
        self.main_menu.add.button('Settings', self.view_settings)
        self.main_menu.add.button('Leaderboard', self.view_leaderboard)
@@ -88,7 +112,7 @@ class Controller:
          '''
         
          self.main_menu.disable()
-         self.state = "END"#make game when we have smth to go into it
+         self.state = "GAME"
          
          
     def update_name(self, name):
@@ -113,6 +137,9 @@ class Controller:
         pass
     
     def view_leaderboard(self):
+        '''
+        Exits menu and changes mode
+        '''
         self.main_menu.disable()
         self.state = "LEADERBOARD"
     
@@ -142,7 +169,7 @@ class Controller:
         self.end = pygame_menu.Menu('Game Over!', 800, 600, theme=pygame_menu.themes.THEME_BLUE)
         self.end.add.label("Score:NONE")
         self.end.add.button('Play again', self.restart_the_game)
-        self.end.add.button('Main Menu', self.go_to_menu)
+        self.end.add.button('Main Menu', self.go_to_menu_end)
         self.end.add.button('Leaderboard', self.view_leaderboard_end)
         self.end.add.button('Quit', pygame_menu.events.EXIT)
         
@@ -152,23 +179,24 @@ class Controller:
     def restart_the_game(self):
         '''
         Exits menu and changes mode
-        
         '''
         print(f"{self.player_name} play {self.current_mode}")
         self.end.disable()
         self.state = "GAME"
     
-    def go_to_menu(self):
+    def go_to_menu_end(self):
         '''
         Exits menu and changes mode
-        
         '''
         self.end.disable()
         self.state = "MAIN_MENU"
         
     def view_leaderboard_end(self):
-       self.end.disable()
-       self.state = "LEADERBOARD"    
+        '''
+        Exits menu and changes mode
+        '''
+        self.end.disable()
+        self.state = "LEADERBOARD"    
         
         
 

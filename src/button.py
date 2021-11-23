@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, name, x, y, img_file, text, width=100, height=50):
+    def __init__(self, x, y, img_file, text, width=100, height=50):
 
         pygame.sprite.Sprite.__init__(self)
 
@@ -31,3 +31,10 @@ class Button(pygame.sprite.Sprite):
             parameters: self, self.text new_text
         """
         self.text = new_text
+        
+    def ifClicked(self):
+        """
+        If button is clicked, returns true
+        """
+
+        return True
