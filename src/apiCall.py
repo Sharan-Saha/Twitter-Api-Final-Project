@@ -32,15 +32,15 @@ def getTrends(national_trends):
 
 def main():
     # (time.time())
-    path = Path('trends.json')
+    path = Path('src/trends.json')
     if path.is_file():
-        with open("trends.json") as readfile:
+        with open(path) as readfile:
             trends = json.load(readfile)
         if trends[0] < time.time() - 900:
             trends = getTrends(callApi())
     else:
         trends = getTrends(callApi())
-    with open('trends.json', 'w') as outfile:
+    with open(path, 'w') as outfile:
         json.dump(trends, outfile)
     
 

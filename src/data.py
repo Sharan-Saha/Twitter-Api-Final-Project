@@ -1,9 +1,9 @@
 from os import write
 import json 
-# json_pointer = open("trends.json", "r")
-# objects = json.load(json_pointer)
-# objects.pop(0)
-# objects.pop()
+json_pointer = open("trends.json", "r")
+objects = json.load(json_pointer)
+objects.pop(0)
+objects.pop()
 
 
 list = [1,2,3,4,5,6,7,8]
