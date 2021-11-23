@@ -17,7 +17,6 @@ class Codes:
 
 def main():
     keys = Codes().assignValues()
-    print(keys)
     return keys
 
 main()

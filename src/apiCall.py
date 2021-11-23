@@ -32,9 +32,9 @@ def getTrends(national_trends):
 
 def main():
     # (time.time())
-    path = Path('trends.txt')
+    path = Path('trends.json')
     if path.is_file():
-        with open("trends.txt") as readfile:
+        with open("trends.json") as readfile:
             trends = json.load(readfile)
         if trends[0] < time.time() - 900:
             trends = getTrends(callApi())
