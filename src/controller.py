@@ -24,7 +24,7 @@ class Controller:
         self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
 
-        self.score = 69
+        self.score = 420
 
 
         self.buttons = pygame.sprite.Group()
