@@ -24,7 +24,7 @@ class Controller:
         self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
 
-        self.score = 420
+        self.score = 0
 
 
         self.buttons = pygame.sprite.Group()
@@ -66,11 +66,18 @@ class Controller:
                     position = pygame.mouse.get_pos()
             
                     if self.button1.rect.collidepoint(position):
-                            print("YES!")
+                            self.score +=1 
+                            print(f"Score:{self.score}")
+
                         
                     elif self.button2.rect.collidepoint(position):
-                            print(self.state)
                             self.state = "END"
+                            self.leaderboard.update({self.player_name: self.score})
+                            
+                            path = Path('src/userinfo.json')
+                            with open(path, 'w') as outfile:
+                                json.dump(self.leaderboard, outfile)
+                            self.score = 0
             
             
             #Puts background, button text, and buttons(rectangles) on the screen
@@ -154,9 +161,25 @@ class Controller:
         self.state = "LEADERBOARD"
     
     def leaderboardLoop(self):
+        """
+        Sets up the leaderboard menu. Accesses leaderboard for most recent scores, sorts the scores, and displays them
+        Args: None
+        Returns: None
+        """
+        
         self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 800, 600, theme=pygame_menu.themes.THEME_BLUE)
-        for i in range(1,11):
-            self.leaderboard_menu.add.label(f"{i}. Player || SCORE:")
+        path = Path('src/userinfo.json')
+        
+        with open(path) as readfile: #Updates the current leaderboard
+             self.leaderboard = json.load(readfile)
+
+        current_highscores = sorted(self.leaderboard.items(), key=lambda item: item[1], reverse = True )
+        print(current_highscores)
+        for i in range(0,10):
+            if i >= len(current_highscores): #Adds filler scores if there is less than 10 people on the leaderboard
+                self.leaderboard_menu.add.label(f"{i+1}. Player || SCORE:N/A") 
+            else:
+                self.leaderboard_menu.add.label(f"{i+1}. {current_highscores[i][0]} || SCORE:{current_highscores[i][1]}") #Adds player scores
         self.leaderboard_menu.add.button("Main Menu", self.go_to_menu_leaderboard)
         self.leaderboard_menu.mainloop(self.screen)
         pygame.display.flip()
@@ -177,7 +200,7 @@ class Controller:
         Sets up the game over menu.
         '''
         self.end = pygame_menu.Menu('Game Over!', 800, 600, theme=pygame_menu.themes.THEME_BLUE)
-        self.end.add.label("Score:NONE")
+        self.end.add.label(f"Score:{self.score}")
         self.end.add.button('Play again', self.restart_the_game)
         self.end.add.button('Main Menu', self.go_to_menu_end)
         self.end.add.button('Leaderboard', self.view_leaderboard_end)
