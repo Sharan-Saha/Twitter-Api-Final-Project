@@ -68,6 +68,10 @@ class Controller:
                     if self.button1.rect.collidepoint(position):
                             self.score +=1 
                             print(f"Score:{self.score}")
+                            # self.button1.rect = self.button1.rect.inflate(-10,-10)
+                            pygame.display.flip()
+                            pygame.time.wait(100)
+                            # self.button1.rect.inflate_ip(-10,-10)
 
                         
                     elif self.button2.rect.collidepoint(position):
@@ -86,12 +90,19 @@ class Controller:
         
     
             self.buttons.draw(self.screen)
-            
             button1txt = self.font.render("button1", True, (250,50,50))
+            # button1txt_rect = button1txt.get_rect()
+            # button1txt_rect.center = (self.button1.width, button1txt_rect.height // 2)
+
             button2txt = self.font.render("End Screen", True, (250,50,50))
-            self.screen.blit(button1txt, self.button1.rect.topleft)
-            self.screen.blit(button2txt, self.button2.rect.topleft)
-            
+            self.screen.blit(button1txt, self.button1.rect.midleft)
+            self.screen.blit(button2txt, self.button2.rect.midleft)
+
+            #displays and updates score on screen
+            score_board = self.font.render(f"Score:{self.score}", True, (0,0,0))
+            score_board_rect = score_board.get_rect()
+            score_board_rect.center = (self.width // 2, self.height // 4)
+            self.screen.blit(score_board, score_board_rect)
             
             pygame.display.flip()
         
