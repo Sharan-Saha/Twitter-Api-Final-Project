@@ -36,8 +36,8 @@ class Controller:
         self.high_score = 0
 
         
-        self.button1 = button.Button(50, 500, "assets/Button.png", "Test") #NOTE: CHANGE OFF OF TEST
-        self.button2 = button.Button(650, 500, "assets/Button.png", "Test2")
+        self.button1 = button.Button(50, 500, "assets/Button.png", "+1 Score") #NOTE: CHANGE OFF OF TEST
+        self.button2 = button.Button(650, 500, "assets/Button.png", "END SCREEN")
         
         self.buttons = pygame.sprite.Group()
         self.buttons.add(self.button1)
@@ -133,13 +133,14 @@ class Controller:
             
             self.labels.draw(self.screen)
             
-            button1txt = self.font.render("button1", True, (250,50,50))
+            button1txt = self.font.render(self.button1.text, True, (250,50,50))
             # button1txt_rect = button1txt.get_rect()
             # button1txt_rect.center = (self.button1.width, button1txt_rect.height // 2)
-
-            button2txt = self.font.render("End Screen", True, (250,50,50))
-            self.screen.blit(button1txt, self.button1.rect.midleft)
-            self.screen.blit(button2txt, self.button2.rect.midleft)
+            button2txt = self.font.render(self.button2.text, True, (250,50,50))
+            
+            
+            self.screen.blit(button1txt, (self.button1.rect.x + 75,self.button1.rect.y + 25 ))
+            self.screen.blit(button2txt, (self.button2.rect.x + 50,self.button2.rect.y + 25 ))
 
             #displays and updates specific users high score on screen
             high_score_board = self.font.render(f"High Score:{self.high_score}", True, (0,0,0))
