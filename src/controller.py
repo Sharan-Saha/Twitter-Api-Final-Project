@@ -45,10 +45,12 @@ class Controller:
         
         
         
-        self.label = label.Label(75,125, "assets/label.png", "This is a test")
+        self.scores_label = label.Label(350,25, "assets/smalllabel.png", "I show scores")
+        self.question_label = label.Label(75,125, "assets/label.png", "I show the question")
         
         self.labels = pygame.sprite.Group()
-        self.labels.add(self.label)
+        self.labels.add(self.scores_label)
+        self.labels.add(self.question_label)
         
 
     def mainLoop(self):
@@ -95,6 +97,7 @@ class Controller:
                         sys.exit()
                 if pygame.mouse.get_pressed()[0]:
                     position = pygame.mouse.get_pos()
+                    print(position)
             
                     if self.button1.rect.collidepoint(position):
                             self.score +=1 
@@ -139,19 +142,19 @@ class Controller:
             button2txt = self.font.render(self.button2.text, True, (250,50,50))
             
             
-            self.screen.blit(button1txt, (self.button1.rect.x + 75,self.button1.rect.y + 25 ))
-            self.screen.blit(button2txt, (self.button2.rect.x + 50,self.button2.rect.y + 25 ))
+            self.screen.blit(button1txt, (self.button1.rect.x + 75, self.button1.rect.y + 25 ))
+            self.screen.blit(button2txt, (self.button2.rect.x + 50, self.button2.rect.y + 25 ))
 
             #displays and updates specific users high score on screen
             high_score_board = self.font.render(f"High Score:{self.high_score}", True, (0,0,0))
             high_score_board_rect = high_score_board.get_rect()
-            high_score_board_rect.center = (self.width // 2, self.height // 5)
+            high_score_board_rect.center = (self.width // 2, ((self.height // 5)-100))
             self.screen.blit(high_score_board, high_score_board_rect)
 
             #displays and updates score on screen
             score_board = self.font.render(f"Score:{self.score}", True, (0,0,0))
             score_board_rect = score_board.get_rect()
-            score_board_rect.center = (self.width // 2, self.height // 4)
+            score_board_rect.center = (self.width // 2, ((self.height // 4)-100))
             self.screen.blit(score_board, score_board_rect)
             
             pygame.display.flip()
@@ -165,13 +168,13 @@ class Controller:
         Sets up our menu.
         '''
         self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
-        self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name)
+        self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name, maxchar=10)
         self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
-        self.main_menu.add.button('Play', self.start_the_game)
+        self.main_menu.add.button('Play', self.start_the_game).background_inflate_to_selection_effect()
         self.main_menu.add.button('Settings', self.view_settings)
         self.main_menu.add.button('Leaderboard', self.view_leaderboard)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
-       
+        
        
         self.main_menu.mainloop(self.screen)
         pygame.display.flip()
