@@ -1,3 +1,4 @@
+import pathlib
 import sys
 import json
 from pathlib import Path
@@ -31,6 +32,8 @@ class Controller:
 
 
         self.score = 0
+        self.high_score = 0
+        
 
 
         self.buttons = pygame.sprite.Group()
@@ -63,6 +66,17 @@ class Controller:
 
     def gameLoop(self):
         self.score = 0
+        # self.high_score = 0
+        path = Path('src/userinfo.json')
+        with open(path) as readfile:
+            json.load(readfile)
+            print(readfile)
+            if self.player_name in readfile:
+                self.high_score = readfile({self.player_name})
+                print(self.high_score)
+                print(self.player_name)
+            # else:
+                # self.high_score = 0
         while self.state == "GAME":
             for event in pygame.event.get():
             
@@ -74,20 +88,24 @@ class Controller:
             
                     if self.button1.rect.collidepoint(position):
                             self.score +=1 
-                            print(f"Score:{self.score}")
+                            # print(f"Score:{self.score}")
                             # self.button1.rect = self.button1.rect.inflate(-10,-10)
-                            pygame.display.flip()
-                            pygame.time.wait(100)
+                            # pygame.display.flip()
+                            # pygame.time.wait(100)
                             # self.button1.rect.inflate_ip(-10,-10)
 
                         
                     elif self.button2.rect.collidepoint(position):
                             self.state = "END"
-                            self.leaderboard.update({self.player_name: self.score})#BUG: WORSE SCORE IS SAVED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                            self.leaderboard.update({self.player_name: self.high_score})#BUG: MOST RECENT SCORE IS SAVED!!!
                             
                             path = Path('src/userinfo.json')
                             with open(path, 'w') as outfile:
                                 json.dump(self.leaderboard, outfile)
+
+            #updates high score and saves it
+            if self.score >= self.high_score:
+                self.high_score = self.score
                             
             
             
@@ -104,6 +122,12 @@ class Controller:
             button2txt = self.font.render("End Screen", True, (250,50,50))
             self.screen.blit(button1txt, self.button1.rect.midleft)
             self.screen.blit(button2txt, self.button2.rect.midleft)
+
+            #displays and updates specific users high score on screen
+            high_score_board = self.font.render(f"High Score:{self.high_score}", True, (0,0,0))
+            high_score_board_rect = high_score_board.get_rect()
+            high_score_board_rect.center = (self.width // 2, self.height // 5)
+            self.screen.blit(high_score_board, high_score_board_rect)
 
             #displays and updates score on screen
             score_board = self.font.render(f"Score:{self.score}", True, (0,0,0))
