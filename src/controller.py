@@ -178,7 +178,7 @@ class Controller:
         Returns: None
         """
         
-        self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 800, 600, theme=pygame_menu.themes.THEME_BLUE)
+        self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         path = Path('src/userinfo.json')
         
         with open(path) as readfile: #Updates the current leaderboard
@@ -210,7 +210,7 @@ class Controller:
         '''
         Sets up the game over menu.
         '''
-        self.end = pygame_menu.Menu('Game Over!', 800, 600, theme=pygame_menu.themes.THEME_BLUE)
+        self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         self.end.add.label(f"Score:{self.score}")
         self.end.add.button('Play again', self.restart_the_game)
         self.end.add.button('Main Menu', self.go_to_menu_end)
