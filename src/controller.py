@@ -9,9 +9,15 @@ from src import button
 class Controller: 
     def __init__(self, width = 1000, height = 800):
         pygame.init()
+        
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
+        
+        pygame.display.set_caption("Moore or Less")
+        samoore = pygame.image.load('assets/samoore.jpg').convert_alpha()
+        pygame.display.set_icon(samoore)
+        
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.background.fill([250, 250, 250])  # set the background to white
     
@@ -56,6 +62,7 @@ class Controller:
                 self.endLoop()
 
     def gameLoop(self):
+        self.score = 0
         while self.state == "GAME":
             for event in pygame.event.get():
             
@@ -76,12 +83,12 @@ class Controller:
                         
                     elif self.button2.rect.collidepoint(position):
                             self.state = "END"
-                            self.leaderboard.update({self.player_name: self.score})
+                            self.leaderboard.update({self.player_name: self.score})#BUG: WORSE SCORE IS SAVED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                             
                             path = Path('src/userinfo.json')
                             with open(path, 'w') as outfile:
                                 json.dump(self.leaderboard, outfile)
-                            self.score = 0
+                            
             
             
             #Puts background, button text, and buttons(rectangles) on the screen
@@ -141,6 +148,7 @@ class Controller:
          with open(path, 'w') as outfile:
             json.dump(self.leaderboard, outfile)
          self.state = "GAME"
+         
          
     def update_name(self, name):
         '''
