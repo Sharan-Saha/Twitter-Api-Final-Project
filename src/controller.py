@@ -1,4 +1,4 @@
-import pathlib
+import pathlib #Do we need this? Say's its unused
 import sys
 import json
 from pathlib import Path
@@ -6,6 +6,7 @@ import pygame
 import pygame_menu
 
 from src import button
+from src import label
 
 class Controller: 
     def __init__(self, width = 1000, height = 800):
@@ -33,19 +34,26 @@ class Controller:
 
         self.score = 0
         self.high_score = 0
+
         
-
-
-        self.buttons = pygame.sprite.Group()
-        self.button1 = button.Button(50, 500, "assets/Button.png", "Test")
+        self.button1 = button.Button(50, 500, "assets/Button.png", "Test") #NOTE: CHANGE OFF OF TEST
         self.button2 = button.Button(650, 500, "assets/Button.png", "Test2")
         
+        self.buttons = pygame.sprite.Group()
         self.buttons.add(self.button1)
         self.buttons.add(self.button2)
+        
+        
+        
+        self.label = label.Label(75,125, "assets/label.png", "This is a test")
+        
+        self.labels = pygame.sprite.Group()
+        self.labels.add(self.label)
+        
 
     def mainLoop(self):
         '''
-        The five states of the game. When the mode changes, the loop we run also changes
+        The loop which lets us go between the five states of the game. When the mode changes, the loop we are currently running also changes
         
         '''
         while True:
@@ -65,7 +73,10 @@ class Controller:
                 self.endLoop()
 
     def gameLoop(self):
+        '''
+        The main game loop. Deals with scoring, blitting objects to the screen, and events
         
+        '''
         #resets scores and highscore
         self.score = 0
         self.high_score = 0 
@@ -77,7 +88,8 @@ class Controller:
             
         while self.state == "GAME":
             for event in pygame.event.get():
-            
+                if event.type==pygame.QUIT:
+                    pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if(event.key == pygame.K_q):
                         sys.exit()
@@ -88,6 +100,8 @@ class Controller:
                             self.score +=1 
 
                             # self.button1.rect = self.button1.rect.inflate(-10,-10)
+                            
+                            #updates display before the short delay
                             pygame.display.flip()
                             pygame.time.wait(100)
                             # self.button1.rect.inflate_ip(-10,-10)
@@ -116,6 +130,9 @@ class Controller:
         
     
             self.buttons.draw(self.screen)
+            
+            self.labels.draw(self.screen)
+            
             button1txt = self.font.render("button1", True, (250,50,50))
             # button1txt_rect = button1txt.get_rect()
             # button1txt_rect.center = (self.button1.width, button1txt_rect.height // 2)
@@ -143,40 +160,40 @@ class Controller:
     
     
     def menuLoop(self):
-       '''
-       Sets up our menu.
-       '''
-       self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
-       self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name)
-       self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
-       self.main_menu.add.button('Play', self.start_the_game)
-       self.main_menu.add.button('Settings', self.view_settings)
-       self.main_menu.add.button('Leaderboard', self.view_leaderboard)
-       self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
+        '''
+        Sets up our menu.
+        '''
+        self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+        self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name)
+        self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
+        self.main_menu.add.button('Play', self.start_the_game)
+        self.main_menu.add.button('Settings', self.view_settings)
+        self.main_menu.add.button('Leaderboard', self.view_leaderboard)
+        self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
        
        
-       self.main_menu.mainloop(self.screen)
-       pygame.display.flip()
+        self.main_menu.mainloop(self.screen)
+        pygame.display.flip()
         
     def start_the_game(self):
-         '''
-         Exits menu and changes mode
+        '''
+        Exits menu and changes mode
          
-         '''
+        '''
         
-         self.main_menu.disable()
+        self.main_menu.disable()
          
-         #Gets an updated version of player stats and leaderboard upon game start
-         path = Path('src/userinfo.json')
-         with open(path) as readfile:
-             self.leaderboard = json.load(readfile)
-             
-         if self.player_name not in self.leaderboard: #If you aren't already in the leaderboard, your name is added
-             self.leaderboard.update({self.player_name: self.score})
+        #Gets an updated version of player stats and leaderboard upon game start
+        path = Path('src/userinfo.json')
+        with open(path) as readfile:
+            self.leaderboard = json.load(readfile)
+            
+        if self.player_name not in self.leaderboard: #If you aren't already in the leaderboard, your name is added
+            self.leaderboard.update({self.player_name: self.score})
         
-             with open(path, 'w') as outfile:
-                 json.dump(self.leaderboard, outfile)
-         self.state = "GAME"
+        with open(path, 'w') as outfile:
+            json.dump(self.leaderboard, outfile)
+        self.state = "GAME"
          
          
     def update_name(self, name):
@@ -203,17 +220,17 @@ class Controller:
     
     def view_leaderboard(self):
         '''
-        Exits menu and changes mode
+        Exits main menu and changes mode to leaderboard
         '''
         self.main_menu.disable()
         self.state = "LEADERBOARD"
     
     def leaderboardLoop(self):
-        """
+        '''
         Sets up the leaderboard menu. Accesses leaderboard for most recent scores, sorts the scores, and displays them
         Args: None
         Returns: None
-        """
+        '''
         
         self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         path = Path('src/userinfo.json')
@@ -233,7 +250,7 @@ class Controller:
       
     def go_to_menu_leaderboard(self):
         '''
-        Exits menu and changes mode
+        Exits leaderboard menu and changes mode to main menu
         
         '''
         self.leaderboard_menu.disable()
