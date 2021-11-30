@@ -193,7 +193,6 @@ class Controller:
              self.leaderboard = json.load(readfile)
 
         current_highscores = sorted(self.leaderboard.items(), key=lambda item: item[1], reverse = True )
-        print(current_highscores)
         for i in range(0,10):
             if i >= len(current_highscores): #Adds filler scores if there is less than 10 people on the leaderboard
                 self.leaderboard_menu.add.label(f"{i+1}. Player || SCORE:N/A") 
@@ -232,7 +231,6 @@ class Controller:
         '''
         Exits menu and changes mode
         '''
-        print(f"{self.player_name} play {self.current_mode}")
         self.end.disable()
         self.state = "GAME"
     
