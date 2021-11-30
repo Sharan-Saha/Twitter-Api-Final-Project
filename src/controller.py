@@ -12,6 +12,8 @@ class Controller:
     def __init__(self, width = 1000, height = 800):
         pygame.init()
         
+        
+        self.leaderboard_path = Path('src/userinfo.json')
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -97,7 +99,6 @@ class Controller:
                         sys.exit()
                 if pygame.mouse.get_pressed()[0]:
                     position = pygame.mouse.get_pos()
-                    print(position)
             
                     if self.button1.rect.collidepoint(position):
                             self.score +=1 
@@ -117,8 +118,8 @@ class Controller:
                             if self.score > self.leaderboard[self.player_name]:
                                 self.leaderboard.update({self.player_name: self.score})
                             
-                                path = Path('src/userinfo.json')
-                                with open(path, 'w') as outfile:
+                                
+                                with open(self.leaderboard_path, 'w') as outfile:
                                     json.dump(self.leaderboard, outfile)
 
             #updates high score in real time 
@@ -188,14 +189,14 @@ class Controller:
         self.main_menu.disable()
          
         #Gets an updated version of player stats and leaderboard upon game start
-        path = Path('src/userinfo.json')
-        with open(path) as readfile:
+        
+        with open(self.leaderboard_path) as readfile:
             self.leaderboard = json.load(readfile)
             
         if self.player_name not in self.leaderboard: #If you aren't already in the leaderboard, your name is added
             self.leaderboard.update({self.player_name: self.score})
         
-        with open(path, 'w') as outfile:
+        with open(self.leaderboard_path, 'w') as outfile:
             json.dump(self.leaderboard, outfile)
         self.state = "GAME"
          
@@ -237,9 +238,9 @@ class Controller:
         '''
         
         self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
-        path = Path('src/userinfo.json')
         
-        with open(path) as readfile: #Updates the current leaderboard
+        
+        with open(self.leaderboard_path) as readfile: #Updates the current leaderboard
              self.leaderboard = json.load(readfile)
 
         current_highscores = sorted(self.leaderboard.items(), key=lambda item: item[1], reverse = True )
