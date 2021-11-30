@@ -65,18 +65,16 @@ class Controller:
                 self.endLoop()
 
     def gameLoop(self):
+        
+        #resets scores and highscore
         self.score = 0
-        # self.high_score = 0
-        path = Path('src/userinfo.json')
-        with open(path) as readfile:
-            json.load(readfile)
-            print(readfile)
-            if self.player_name in readfile:
-                self.high_score = readfile({self.player_name})
-                print(self.high_score)
-                print(self.player_name)
-            # else:
-                # self.high_score = 0
+        self.high_score = 0 
+        
+        #updates highscore to match player data
+        if self.player_name in self.leaderboard:
+            self.high_score = self.leaderboard[self.player_name]
+            
+            
         while self.state == "GAME":
             for event in pygame.event.get():
             
@@ -88,22 +86,25 @@ class Controller:
             
                     if self.button1.rect.collidepoint(position):
                             self.score +=1 
-                            # print(f"Score:{self.score}")
+
                             # self.button1.rect = self.button1.rect.inflate(-10,-10)
-                            # pygame.display.flip()
-                            # pygame.time.wait(100)
+                            pygame.display.flip()
+                            pygame.time.wait(100)
                             # self.button1.rect.inflate_ip(-10,-10)
 
                         
                     elif self.button2.rect.collidepoint(position):
                             self.state = "END"
-                            self.leaderboard.update({self.player_name: self.high_score})#BUG: MOST RECENT SCORE IS SAVED!!!
                             
-                            path = Path('src/userinfo.json')
-                            with open(path, 'w') as outfile:
-                                json.dump(self.leaderboard, outfile)
+                            #Only updates save & leaderboard if the score is the player's highscore
+                            if self.score > self.leaderboard[self.player_name]:
+                                self.leaderboard.update({self.player_name: self.score})
+                            
+                                path = Path('src/userinfo.json')
+                                with open(path, 'w') as outfile:
+                                    json.dump(self.leaderboard, outfile)
 
-            #updates high score and saves it
+            #updates high score in real time 
             if self.score >= self.high_score:
                 self.high_score = self.score
                             
@@ -146,7 +147,7 @@ class Controller:
        Sets up our menu.
        '''
        self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
-       self.main_menu.add.text_input('Name :', default='Player', onchange=self.update_name)
+       self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name)
        self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
        self.main_menu.add.button('Play', self.start_the_game)
        self.main_menu.add.button('Settings', self.view_settings)
@@ -165,12 +166,16 @@ class Controller:
         
          self.main_menu.disable()
          
+         #Gets an updated version of player stats and leaderboard upon game start
          path = Path('src/userinfo.json')
          with open(path) as readfile:
              self.leaderboard = json.load(readfile)
-         self.leaderboard.update({self.player_name: self.score})
-         with open(path, 'w') as outfile:
-            json.dump(self.leaderboard, outfile)
+             
+         if self.player_name not in self.leaderboard: #If you aren't already in the leaderboard, your name is added
+             self.leaderboard.update({self.player_name: self.score})
+        
+             with open(path, 'w') as outfile:
+                 json.dump(self.leaderboard, outfile)
          self.state = "GAME"
          
          
