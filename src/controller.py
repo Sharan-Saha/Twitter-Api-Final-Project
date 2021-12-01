@@ -40,17 +40,17 @@ class Controller:
         self.state = "MAIN_MENU"
         
         self.player_name = "Player"
-        self.current_mode = "Test"
-        self.base_name = ""
-        self.comparison_name = "" 
+        #self.current_mode = "Normal"
+        self.base_name = "base"
+        self.comparison_name = "comparison" 
         
-        self.button1 = button.Button(50, 500, "assets/Button.png", "+1 Score") #NOTE: CHANGE OFF OF TEST
-        self.button2 = button.Button(650, 500, "assets/Button.png", "END SCREEN")
+        self.base_trend_button = button.Button(50, 500, "assets/Button.png",  "Moore") 
+        self.comparison_trend_button = button.Button(650, 500, "assets/Button.png", "Less")
         
         self.buttons = pygame.sprite.Group()
-        self.buttons.add(self.button1)
-        self.buttons.add(self.button2)
-        
+        self.buttons.add(self.base_trend_button)
+        self.buttons.add(self.comparison_trend_button)
+          
         
         self.leaderboard_path = Path('src/userinfo.json')
         if not self.leaderboard_path.is_file(): #If user info file doesn't exist, create it.
@@ -105,12 +105,12 @@ class Controller:
         self.base_number = random.randrange(0, len(self.deck))
         self.comparison_number = random.randrange(0, len(self.deck))
 
-        
 
 
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
         self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
+
 
         
 
@@ -134,15 +134,15 @@ class Controller:
                 if pygame.mouse.get_pressed()[0]:
                     position = pygame.mouse.get_pos()
             
-                    if self.button1.rect.collidepoint(position):
+                    if self.base_trend_button.rect.collidepoint(position): #Chooses two new topics
                             self.score +=1
                             self.base_number = random.randrange(0, len(self.deck))
                             self.comparison_number = random.randrange(0, len(self.deck))
 
-                            if self.base_number == self.comparison_number:
+                            if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
                                 self.same_number = True
         
-                            while self.same_number :
+                            while self.same_number:
                                 self.comparison_number = random.randrange(1, len(self.deck))
                                 if self.comparison_number != self.base_number:
                                     self.same_number = False
@@ -152,6 +152,7 @@ class Controller:
                             self.base_name = self.deck[self.base_number][0]
                             self.comparison_name = self.deck[self.comparison_number][0]
                             self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
+                            
 
                             # self.button1.rect = self.button1.rect.inflate(-10,-10)
                             
@@ -161,7 +162,7 @@ class Controller:
                             # self.button1.rect.inflate_ip(-10,-10)
 
                         
-                    elif self.button2.rect.collidepoint(position):
+                    elif self.comparison_trend_button.rect.collidepoint(position):
                             self.state = "END"
                             
                             #Only updates save & leaderboard if the score is the player's highscore
@@ -181,24 +182,22 @@ class Controller:
             #Puts background, button text, and buttons(rectangles) on the screen
             self.screen.blit(self.background, (0, 0))
             
-        
             
             self.buttons.draw(self.screen)
-            
             self.labels.draw(self.screen)
             
-            button1_txt = self.font.render(self.button1.text, True, (250,50,50))
+            base_trend_txt = self.font.render(self.base_trend_button.text, True, (250,50,50))
             # button1txt_rect = button1txt.get_rect()
             # button1txt_rect.center = (self.button1.width, button1txt_rect.height // 2)
-            button2_txt = self.font.render(self.button2.text, True, (250,50,50))
+            comparison_trend_txt = self.font.render(self.comparison_trend_button.text, True, (250,50,50))
             
             question_label_txt = self.font.render(self.question_label.text, True, (250,50,50))
             
             
             self.screen.blit(question_label_txt, (self.question_label.rect.x + 75, self.question_label.rect.y + 25 ))
             
-            self.screen.blit(button1_txt, (self.button1.rect.x + 75, self.button1.rect.y + 25 ))
-            self.screen.blit(button2_txt, (self.button2.rect.x + 50, self.button2.rect.y + 25 ))
+            self.screen.blit(base_trend_txt, (self.base_trend_button.rect.x + 75, self.base_trend_button.rect.y + 25 ))
+            self.screen.blit(comparison_trend_txt, (self.comparison_trend_button.rect.x + 50, self.comparison_trend_button.rect.y + 25 ))
 
             #displays and updates specific users high score on screen
             high_score_board = self.font.render(f"High Score:{self.high_score}", True, (0,0,0))
@@ -224,7 +223,7 @@ class Controller:
         '''
         self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name, maxchar=10)
-        self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
+        #self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
         self.main_menu.add.button('Play', self.start_the_game).background_inflate_to_selection_effect()
         self.main_menu.add.button('Settings', self.view_settings)
         self.main_menu.add.button('Leaderboard', self.view_leaderboard)
@@ -262,13 +261,15 @@ class Controller:
         self.player_name = name
         
     
-    def set_mode(self, mode, option):
-        '''
-        Doesn't do anything rn, but in the future would swithc it to a timed mode
-        
-        '''
-        self.current_mode = mode[0][0]
-        print("Toggled.", option)    
+# =============================================================================
+#     def set_mode(self, mode, option):
+#         '''
+#         Doesn't do anything rn, but in the future would swithc it to a timed mode
+#         
+#         '''
+#         self.current_mode = mode[0][0]
+#         print("Toggled.", option)    
+# =============================================================================
         
         
     def view_settings(self):
