@@ -1,12 +1,14 @@
 import pathlib #Do we need this? Say's its unused
 import sys
 import json
+import random
 from pathlib import Path
 import pygame
 import pygame_menu
 
 from src import button
 from src import label
+
 
 class Controller: 
     def __init__(self, width = 1000, height = 800):
@@ -25,18 +27,23 @@ class Controller:
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.background.fill([250, 250, 250])  # set the background to white
     
-        self.state = "MAIN_MENU"
         
-        self.player_name = "Player"
-        self.current_mode = "Test"
         
         pygame.font.init()
         self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
-
+        #Game Needs these to run
         self.score = 0
         self.high_score = 0
-
+        self.same_number = False
+        
+        
+        self.state = "MAIN_MENU"
+        
+        self.player_name = "Player"
+        self.current_mode = "Test"
+        self.base_name = ""
+        self.comparison_name = ""
         
         self.button1 = button.Button(50, 500, "assets/Button.png", "+1 Score") #NOTE: CHANGE OFF OF TEST
         self.button2 = button.Button(650, 500, "assets/Button.png", "END SCREEN")
@@ -47,8 +54,11 @@ class Controller:
         
         
         
+        
+        
+        self.labels = pygame.sprite.Group()
         self.scores_label = label.Label(350,25, "assets/smalllabel.png", "I show scores")
-        self.question_label = label.Label(75,125, "assets/label.png", "I show the question")
+        self.question_label = label.Label(75,125, "assets/label.png", f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
         
         self.labels = pygame.sprite.Group()
         self.labels.add(self.scores_label)
@@ -81,6 +91,21 @@ class Controller:
         The main game loop. Deals with scoring, blitting objects to the screen, and events
         
         '''
+
+        with open("src/trends.json", "r") as trends:
+            self.deck = json.load(trends)
+            self.deck.pop(0)
+            self.deck.pop
+        
+        self.base_number = random.randrange(1, len(self.deck))
+        self.comparison_number = random.randrange(1, len(self.deck))
+
+        
+
+        self.base_name = self.deck[self.base_number][0]
+        self.comparison_name = self.deck[self.comparison_number][0]
+        self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
+    
         #resets scores and highscore
         self.score = 0
         self.high_score = 0 
@@ -132,30 +157,34 @@ class Controller:
             self.screen.blit(self.background, (0, 0))
             
         
-    
+            
             self.buttons.draw(self.screen)
             
             self.labels.draw(self.screen)
             
-            button1txt = self.font.render(self.button1.text, True, (250,50,50))
+            button1_txt = self.font.render(self.button1.text, True, (250,50,50))
             # button1txt_rect = button1txt.get_rect()
             # button1txt_rect.center = (self.button1.width, button1txt_rect.height // 2)
-            button2txt = self.font.render(self.button2.text, True, (250,50,50))
+            button2_txt = self.font.render(self.button2.text, True, (250,50,50))
+            
+            question_label_txt = self.font.render(self.question_label.text, True, (250,50,50))
             
             
-            self.screen.blit(button1txt, (self.button1.rect.x + 75, self.button1.rect.y + 25 ))
-            self.screen.blit(button2txt, (self.button2.rect.x + 50, self.button2.rect.y + 25 ))
+            self.screen.blit(question_label_txt, (self.question_label.rect.x + 75, self.question_label.rect.y + 25 ))
+            
+            self.screen.blit(button1_txt, (self.button1.rect.x + 75, self.button1.rect.y + 25 ))
+            self.screen.blit(button2_txt, (self.button2.rect.x + 50, self.button2.rect.y + 25 ))
 
             #displays and updates specific users high score on screen
             high_score_board = self.font.render(f"High Score:{self.high_score}", True, (0,0,0))
             high_score_board_rect = high_score_board.get_rect()
-            high_score_board_rect.center = (self.width // 2, ((self.height // 5)-100))
+            high_score_board_rect.center = (self.width // 2, ((self.height // 13)))
             self.screen.blit(high_score_board, high_score_board_rect)
 
             #displays and updates score on screen
             score_board = self.font.render(f"Score:{self.score}", True, (0,0,0))
             score_board_rect = score_board.get_rect()
-            score_board_rect.center = (self.width // 2, ((self.height // 4)-100))
+            score_board_rect.center = (self.width // 2, ((self.height // 8)))
             self.screen.blit(score_board, score_board_rect)
             
             pygame.display.flip()
