@@ -15,7 +15,6 @@ class Controller:
         pygame.init()
         
         
-        
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -61,10 +60,6 @@ class Controller:
         
         
         self.labels = pygame.sprite.Group()
-
-        
-        
-        self.labels = pygame.sprite.Group()
       
 
         self.scores_label = label.Label(350,25, "assets/smalllabel.png", "I show scores")
@@ -105,7 +100,7 @@ class Controller:
         with open("src/trends.json", "r") as trends:
             self.deck = json.load(trends)
             self.deck.pop(0)
-            self.deck.pop
+            self.deck.pop()
         
         self.base_number = random.randrange(1, len(self.deck))
         self.comparison_number = random.randrange(1, len(self.deck))
@@ -121,8 +116,6 @@ class Controller:
 
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
-
-        print(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
 
 
         #resets scores and highscore
