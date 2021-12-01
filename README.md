@@ -91,9 +91,9 @@ The Project is broken down into the following file structure:
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
-|  1  | Open terminal, navigate to folder, and type, “python3 main.py" | More or Less starts and shows ther Main Menu GUI |          |
+|  1  | Open terminal, navigate to folder, and type, “python3 main.py" | More or Less starts and shows the Main Menu GUI |          |
 |  2  | Enter username  | Username updates to the user input |                 |
-|  3  | Play game by clicking "Play" with mouse |  starts GameLoop and transitions to game GUI, showing a base trend with a tweet count and a comparison trend |     |
+|  3  | Play game by clicking "Play" with mouse |  runs apiCall.py file which updates the trends.json, starts GameLoop and transitions to game GUI, showing a base trend with a tweet count and a comparison trend, both pulled from the trends.json file|     |
 |  4  | User presses the correct button in game GUI|returns new comparison trend and makes current comparison trend into base trend|     |
 |  5  | User presses the incorect button in game GUI| ends game and shows the end game GUI|       |
 |  6  | click on the "Leaderboard" option in the Game Over menu" | GUI transitions to leaderboard, shows top ten high scores |       |
