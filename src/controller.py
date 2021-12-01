@@ -105,16 +105,14 @@ class Controller:
         self.base_number = random.randrange(0, len(self.deck))
         self.comparison_number = random.randrange(0, len(self.deck))
 
-
         
+
 
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
         self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
-    
 
-        self.base_name = self.deck[self.base_number][0]
-        self.comparison_name = self.deck[self.comparison_number][0]
+        
 
 
         #resets scores and highscore
@@ -140,6 +138,14 @@ class Controller:
                             self.score +=1
                             self.base_number = random.randrange(0, len(self.deck))
                             self.comparison_number = random.randrange(0, len(self.deck))
+
+                            if self.base_number == self.comparison_number:
+                                self.same_number = True
+        
+                            while self.same_number :
+                                self.comparison_number = random.randrange(1, len(self.deck))
+                                if self.comparison_number != self.base_number:
+                                    self.same_number = False
 
         
 
