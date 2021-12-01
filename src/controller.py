@@ -196,7 +196,7 @@ class Controller:
                             
                             #updates display before the short delay
                                 pygame.display.flip()
-                                pygame.time.wait(100)
+                                pygame.time.wait(250)
                             else:
                                 self.state = "END" #If guess is wrong, we end the game
                                 if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
