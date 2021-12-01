@@ -57,6 +57,12 @@ class Controller:
         
         
         self.labels = pygame.sprite.Group()
+
+        
+        
+        self.labels = pygame.sprite.Group()
+      
+
         self.scores_label = label.Label(350,25, "assets/smalllabel.png", "I show scores")
         self.question_label = label.Label(75,125, "assets/label.png", f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
         
@@ -100,12 +106,21 @@ class Controller:
         self.base_number = random.randrange(1, len(self.deck))
         self.comparison_number = random.randrange(1, len(self.deck))
 
+
         
 
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
         self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
     
+        self.same_number = False
+
+        self.base_name = self.deck[self.base_number][0]
+        self.comparison_name = self.deck[self.comparison_number][0]
+
+        print(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
+
+
         #resets scores and highscore
         self.score = 0
         self.high_score = 0 
