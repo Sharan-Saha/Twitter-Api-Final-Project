@@ -142,46 +142,74 @@ class Controller:
                     position = pygame.mouse.get_pos()
             
                     if self.base_trend_button.rect.collidepoint(position): #Chooses two new topics
-                            self.score +=1
-                            self.base_number = random.randrange(0, len(self.deck))
-                            self.comparison_number = random.randrange(0, len(self.deck))
+                            if self.base_count < self.comparison_count:      
+                    
+                                self.score +=1
+                                self.base_number = random.randrange(0, len(self.deck))
+                                self.comparison_number = random.randrange(0, len(self.deck))
 
-                            if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
-                                self.same_number = True
+                                if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
+                                    self.same_number = True
         
-                            while self.same_number:
-                                self.comparison_number = random.randrange(1, len(self.deck))
-                                if self.comparison_number != self.base_number:
-                                    self.same_number = False
+                                while self.same_number:
+                                    self.comparison_number = random.randrange(1, len(self.deck))
+                                    if self.comparison_number != self.base_number:
+                                        self.same_number = False
 
         
 
-                            self.base_name = self.deck[self.base_number][0]
-                            self.comparison_name = self.deck[self.comparison_number][0]
+                                self.base_name = self.deck[self.base_number][0]
+                                self.comparison_name = self.deck[self.comparison_number][0]
 
-                            self.base_count = self.deck[self.base_number][1]
-                            self.comparison_count = self.deck[self.comparison_number][1]
-                            self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
+                                self.base_count = self.deck[self.base_number][1]
+                                self.comparison_count = self.deck[self.comparison_number][1]
+                                self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
                             
 
-                            # self.button1.rect = self.button1.rect.inflate(-10,-10)
                             
                             #updates display before the short delay
-                            pygame.display.flip()
-                            pygame.time.wait(100)
-                            # self.button1.rect.inflate_ip(-10,-10)
+                                pygame.display.flip()
+                                pygame.time.wait(100)
+                            else:
+                                self.state = "END"
+                                if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
+                                    self.leaderboard.update({self.player_name: self.score})
 
-                        
+                                    with open(self.leaderboard_path, 'w') as outfile:
+                                        json.dump(self.leaderboard, outfile)
+                                        
                     elif self.comparison_trend_button.rect.collidepoint(position):
-                            self.state = "END"
+                            if self.base_count > self.comparison_count:      
+                    
+                                self.score +=1
+                                self.base_number = random.randrange(0, len(self.deck))
+                                self.comparison_number = random.randrange(0, len(self.deck))
+
+                                if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
+                                    self.same_number = True
+        
+                                while self.same_number:
+                                    self.comparison_number = random.randrange(1, len(self.deck))
+                                    if self.comparison_number != self.base_number:
+                                        self.same_number = False
+
+        
+
+                                self.base_name = self.deck[self.base_number][0]
+                                self.comparison_name = self.deck[self.comparison_number][0]
+
+                                self.base_count = self.deck[self.base_number][1]
+                                self.comparison_count = self.deck[self.comparison_number][1]
+                                self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
+                            else:
+                                self.state = "END"
+                                if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
+                                    self.leaderboard.update({self.player_name: self.score})
+
+                                    with open(self.leaderboard_path, 'w') as outfile:
+                                        json.dump(self.leaderboard, outfile)
+                           
                             
-                            #Only updates save & leaderboard if the score is the player's highscore
-                            if self.score > self.leaderboard[self.player_name]:
-                                self.leaderboard.update({self.player_name: self.score})
-                            
-                                
-                                with open(self.leaderboard_path, 'w') as outfile:
-                                    json.dump(self.leaderboard, outfile)
 
             #updates high score in real time 
             if self.score >= self.high_score:
