@@ -1,12 +1,14 @@
 import pathlib #Do we need this? Say's its unused
 import sys
 import json
+import random
 from pathlib import Path
 import pygame
 import pygame_menu
 
 from src import button
 from src import label
+
 
 class Controller: 
     def __init__(self, width = 1000, height = 800):
@@ -45,10 +47,11 @@ class Controller:
         
         
         
-        self.label = label.Label(75,125, "assets/label.png", "This is a test")
+        self.label1 = label.Label(75,125, "assets/label.png", "This is a test")
+        
         
         self.labels = pygame.sprite.Group()
-        self.labels.add(self.label)
+        self.labels.add(self.label1)
         
 
     def mainLoop(self):
@@ -77,6 +80,21 @@ class Controller:
         The main game loop. Deals with scoring, blitting objects to the screen, and events
         
         '''
+
+        with open("src/trends.json", "r") as trends:
+            self.deck = json.load(trends)
+            self.deck.pop(0)
+            self.deck.pop
+        
+        self.base_number = random.randrange(1, len(self.deck))
+        self.comparison_number = random.randrange(1, len(self.deck))
+
+        self.same_number = False
+
+        self.base_name = self.deck[self.base_number][0]
+        self.comparison_name = self.deck[self.comparison_number][0]
+
+        print(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
         #resets scores and highscore
         self.score = 0
         self.high_score = 0 
