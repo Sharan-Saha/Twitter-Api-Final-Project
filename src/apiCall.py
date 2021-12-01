@@ -3,7 +3,6 @@ import apiCodes
 import json
 import time
 from pathlib import Path
-#IT F***ING WORKS!!
 # you can access apiCodes.py by unzipping the Codes.zip file, ask me for the password
 
 def callApi():
@@ -13,7 +12,6 @@ def callApi():
     api = tweepy.API(auth)
     us_woeid = 23424977
     national_trends = api.get_place_trends(us_woeid)
-    # print(deck)
 
     return national_trends
 
@@ -31,7 +29,6 @@ def getTrends(national_trends):
     return trends
 
 def main():
-    # (time.time())
     path = Path('src/trends.json')
     if path.is_file():
         with open(path) as readfile:

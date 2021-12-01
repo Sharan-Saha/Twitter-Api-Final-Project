@@ -1,4 +1,3 @@
-import pathlib #Do we need this? Say's its unused
 import sys
 import json
 import random
@@ -12,22 +11,28 @@ from src import label
 
 class Controller: 
     def __init__(self, width = 1000, height = 800):
+        '''
+        Sets up the things we need for the game to run. The screen, background, window, font, variables the game needs to run, buttons and labels
+        args(int, int) Width and height can be changed, but are default 1000 and 800
+        '''
         pygame.init()
         
-        
+        #Screen setup
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
         
+        #Game window name and icon
         pygame.display.set_caption("Moore or Less")
         samoore = pygame.image.load('assets/samoore.jpg').convert_alpha()
         pygame.display.set_icon(samoore)
         
+        #Background
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.background.fill([250, 250, 250])  # set the background to white
     
         
-        
+        #Font setup
         pygame.font.init()
         self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
@@ -36,14 +41,17 @@ class Controller:
         self.high_score = 0
         self.same_number = False
         
-        
         self.state = "MAIN_MENU"
         
+        #Default names for game variables
         self.player_name = "Player"
         #self.current_mode = "Normal"
         self.base_name = "base"
         self.comparison_name = "comparison" 
+        self.base_count = 0
         
+        
+        #adds our buttons
         self.base_trend_button = button.Button(50, 500, "assets/Button.png",  "Moore") 
         self.comparison_trend_button = button.Button(650, 500, "assets/Button.png", "Less")
         
@@ -51,17 +59,18 @@ class Controller:
         self.buttons.add(self.base_trend_button)
         self.buttons.add(self.comparison_trend_button)
           
-        
+        #Sets up leaderboard path and creates a new userinfo file if one does not exist
         self.leaderboard_path = Path('src/userinfo.json')
-        if not self.leaderboard_path.is_file(): #If user info file doesn't exist, create it.
+        if not self.leaderboard_path.is_file(): 
             with open(self.leaderboard_path, 'w') as createfile:
                 json.dump({}, createfile)
 
         
         
+        #adds our labels
         self.labels = pygame.sprite.Group()
       
-        self.base_count = 0
+        
         self.scores_label = label.Label(350,25, "assets/smalllabel.png", "I show scores")
         self.question_label = label.Label(75,125, "assets/label.png", f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
         
@@ -73,7 +82,8 @@ class Controller:
     def mainLoop(self):
         '''
         The loop which lets us go between the five states of the game. When the mode changes, the loop we are currently running also changes
-        
+        args:None
+        return:None
         '''
         while True:
             if self.state == "MAIN_MENU":
@@ -94,30 +104,42 @@ class Controller:
     def gameLoop(self):
         '''
         The main game loop. Deals with scoring, blitting objects to the screen, and events
-        
+        Has onetime setup which sets up the comparisons and text
+        args:None
+        return:None
         '''
 
-        with open("src/trends.json", "r") as trends:
+        with open("src/trends.json", "r") as trends: #reads the trends, makes a deck out with them, and removes the timestamp.
             self.deck = json.load(trends)
             self.deck.pop(0)
             self.deck.pop()
         
+        #Randomly selects 2 trends
         self.base_number = random.randrange(0, len(self.deck))
         self.comparison_number = random.randrange(0, len(self.deck))
 
+
+        if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
+            self.same_number = True
+        
+            while self.same_number:
+                self.comparison_number = random.randrange(1, len(self.deck))
+                if self.comparison_number != self.base_number:
+                    self.same_number = False
+        
+        #Gets the tweet count for each topic
         self.base_count = self.deck[self.base_number][1]
         self.comparison_count = self.deck[self.comparison_number][1]
 
 
-
+        #gets the name for each topic
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
 
-        self.base_count = self.deck[self.base_number][1]
-        self.comparison_count = self.deck[self.comparison_number][1]
+        #Updates the label to include new information
         self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
 
-
+        
 
         
 
@@ -132,32 +154,37 @@ class Controller:
             
             
         while self.state == "GAME":
+            
             for event in pygame.event.get():
+                #Can quit by hitting the x or pushing q
                 if event.type==pygame.QUIT:
                     pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if(event.key == pygame.K_q):
                         sys.exit()
+                        
+                #clicking gets mouse pos and checks if buttons were clicked
                 if pygame.mouse.get_pressed()[0]:
                     position = pygame.mouse.get_pos()
             
-                    if self.base_trend_button.rect.collidepoint(position): #Chooses two new topics
-                            if self.base_count < self.comparison_count:      
+                    if self.base_trend_button.rect.collidepoint(position):#If their guess is more
+                            if self.base_count < self.comparison_count:#If the guess is correct... score!
                     
                                 self.score +=1
-                                self.base_number = random.randrange(0, len(self.deck))
+                                
+                                self.base_number = random.randrange(0, len(self.deck)) #Chooses two new topics
                                 self.comparison_number = random.randrange(0, len(self.deck))
 
                                 if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
                                     self.same_number = True
         
-                                while self.same_number:
-                                    self.comparison_number = random.randrange(1, len(self.deck))
-                                    if self.comparison_number != self.base_number:
-                                        self.same_number = False
+                                    while self.same_number:
+                                        self.comparison_number = random.randrange(1, len(self.deck))
+                                        if self.comparison_number != self.base_number:
+                                            self.same_number = False
 
         
-
+                                #name updating
                                 self.base_name = self.deck[self.base_number][0]
                                 self.comparison_name = self.deck[self.comparison_number][0]
 
@@ -171,7 +198,7 @@ class Controller:
                                 pygame.display.flip()
                                 pygame.time.wait(100)
                             else:
-                                self.state = "END"
+                                self.state = "END" #If guess is wrong, we end the game
                                 if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
                                     self.leaderboard.update({self.player_name: self.score})
 
@@ -179,7 +206,7 @@ class Controller:
                                         json.dump(self.leaderboard, outfile)
                                         
                     elif self.comparison_trend_button.rect.collidepoint(position):
-                            if self.base_count > self.comparison_count:      
+                            if self.base_count > self.comparison_count:  #If their guess is less, correct!    
                     
                                 self.score +=1
                                 self.base_number = random.randrange(0, len(self.deck))
@@ -194,7 +221,7 @@ class Controller:
                                         self.same_number = False
 
         
-
+                                #Updating the names
                                 self.base_name = self.deck[self.base_number][0]
                                 self.comparison_name = self.deck[self.comparison_number][0]
 
@@ -202,7 +229,7 @@ class Controller:
                                 self.comparison_count = self.deck[self.comparison_number][1]
                                 self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
                             else:
-                                self.state = "END"
+                                self.state = "END" #Guess was incorrect, game ends
                                 if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
                                     self.leaderboard.update({self.player_name: self.score})
 
@@ -223,17 +250,14 @@ class Controller:
             
             self.buttons.draw(self.screen)
             self.labels.draw(self.screen)
-            
+        
+            #Renders the text
             base_trend_txt = self.font.render(self.base_trend_button.text, True, (250,50,50))
-            # button1txt_rect = button1txt.get_rect()
-            # button1txt_rect.center = (self.button1.width, button1txt_rect.height // 2)
             comparison_trend_txt = self.font.render(self.comparison_trend_button.text, True, (250,50,50))
-            
             question_label_txt = self.font.render(self.question_label.text, True, (250,50,50))
             
-            
+            #Blits text on screen
             self.screen.blit(question_label_txt, (self.question_label.rect.x + 75, self.question_label.rect.y + 25 ))
-            
             self.screen.blit(base_trend_txt, (self.base_trend_button.rect.x + 75, self.base_trend_button.rect.y + 25 ))
             self.screen.blit(comparison_trend_txt, (self.comparison_trend_button.rect.x + 50, self.comparison_trend_button.rect.y + 25 ))
 
@@ -251,19 +275,20 @@ class Controller:
             
             pygame.display.flip()
         
-    def settingsLoop(self):
+    def settingsLoop(self): #WILLL BE DELETED
         pass
     
     
     def menuLoop(self):
         '''
-        Sets up our menu.
+        Sets up our main menu.
+        args:None
+        return:None
         '''
         self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name, maxchar=10)
-        #self.main_menu.add.selector('Mode :', [('Normal', 1), ('Timed', 2), ('Endless', 3)], onchange=self.set_mode)
+        self.main_menu.add.selector('Theme :', [('Light', 1), ('Dark', 2)], onchange=self.set_mode) #mAKE SURE TO CHANGE SETMODE
         self.main_menu.add.button('Play', self.start_the_game).background_inflate_to_selection_effect()
-        self.main_menu.add.button('Settings', self.view_settings)
         self.main_menu.add.button('Leaderboard', self.view_leaderboard)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
         
@@ -274,7 +299,8 @@ class Controller:
     def start_the_game(self):
         '''
         Exits menu and changes mode
-         
+        args:None
+        return:None
         '''
         
         self.main_menu.disable()
@@ -295,19 +321,22 @@ class Controller:
     def update_name(self, name):
         '''
         When player changes their name, the controller keeps track of that
+        args:None
+        return:None
         '''
         self.player_name = name
         
     
-# =============================================================================
-#     def set_mode(self, mode, option):
-#         '''
-#         Doesn't do anything rn, but in the future would swithc it to a timed mode
-#         
-#         '''
-#         self.current_mode = mode[0][0]
-#         print("Toggled.", option)    
-# =============================================================================
+
+    def set_mode(self, mode, option):
+        '''
+        Doesn't do anything rn, but in the future would swithc it to a timed mode
+        args:None
+        return:None
+        '''
+        self.current_mode = mode[0][0]
+        print("Toggled.", option)    
+
         
         
     def view_settings(self):
@@ -319,6 +348,8 @@ class Controller:
     def view_leaderboard(self):
         '''
         Exits main menu and changes mode to leaderboard
+        args:None
+        return:None
         '''
         self.main_menu.disable()
         self.state = "LEADERBOARD"
@@ -349,7 +380,8 @@ class Controller:
     def go_to_menu_leaderboard(self):
         '''
         Exits leaderboard menu and changes mode to main menu
-        
+        args:None
+        return:None
         '''
         self.leaderboard_menu.disable()
         self.state = "MAIN_MENU"
@@ -360,6 +392,8 @@ class Controller:
     def endLoop(self):
         '''
         Sets up the game over menu.
+        args:None
+        return:None
         '''
         self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         self.end.add.label(f"Score:{self.score}")
@@ -374,6 +408,8 @@ class Controller:
     def restart_the_game(self):
         '''
         Exits menu and changes mode
+        args:None
+        return:None
         '''
         self.end.disable()
         self.state = "GAME"
@@ -381,6 +417,8 @@ class Controller:
     def go_to_menu_end(self):
         '''
         Exits menu and changes mode
+        args:None
+        return:None
         '''
         self.end.disable()
         self.state = "MAIN_MENU"
@@ -388,6 +426,8 @@ class Controller:
     def view_leaderboard_end(self):
         '''
         Exits menu and changes mode
+        args:None
+        return:None
         '''
         self.end.disable()
         self.state = "LEADERBOARD"    
