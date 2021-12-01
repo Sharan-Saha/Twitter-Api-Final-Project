@@ -15,7 +15,7 @@ class Controller:
         pygame.init()
         
         
-        self.leaderboard_path = Path('src/userinfo.json')
+        
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -53,7 +53,11 @@ class Controller:
         self.buttons.add(self.button2)
         
         
-        
+        self.leaderboard_path = Path('src/userinfo.json')
+        if not self.leaderboard_path.is_file():
+            with open(self.leaderboard_path, 'w') as createfile:
+                json.dump({}, createfile)
+
         
         
         self.labels = pygame.sprite.Group()
