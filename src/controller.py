@@ -102,8 +102,8 @@ class Controller:
             self.deck.pop(0)
             self.deck.pop()
         
-        self.base_number = random.randrange(1, len(self.deck))
-        self.comparison_number = random.randrange(1, len(self.deck))
+        self.base_number = random.randrange(0, len(self.deck))
+        self.comparison_number = random.randrange(0, len(self.deck))
 
 
         
@@ -139,8 +139,8 @@ class Controller:
             
                     if self.button1.rect.collidepoint(position):
                             self.score +=1
-                            self.base_number = random.randrange(1, len(self.deck))
-                            self.comparison_number = random.randrange(1, len(self.deck))
+                            self.base_number = random.randrange(0, len(self.deck))
+                            self.comparison_number = random.randrange(0, len(self.deck))
 
         
 
