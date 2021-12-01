@@ -151,6 +151,9 @@ class Controller:
 
                             self.base_name = self.deck[self.base_number][0]
                             self.comparison_name = self.deck[self.comparison_number][0]
+
+                            self.base_count = self.deck[self.base_number][1]
+                            self.comparison_count = self.deck[self.comparison_number][1]
                             self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
                             
 
