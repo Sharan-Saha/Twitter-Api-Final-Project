@@ -117,6 +117,8 @@ class Controller:
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
 
+        
+
 
         #resets scores and highscore
         self.score = 0
