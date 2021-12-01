@@ -94,9 +94,10 @@ The Project is broken down into the following file structure:
 |  1  | Open terminal, navigate to folder, and type, “python3 main.py" | More or Less starts and shows ther Main Menu GUI |          |
 |  2  | Enter username  | Username updates to the user input |                 |
 |  3  | Play game by clicking "Play" with mouse |  starts GameLoop and transitions to game GUI, showing a base trend with a tweet count and a comparison trend |     |
-|  4  | User presses on button(either higher or lower) in game GUI| if correct, returns new comparison trend and makes current comparison trend into base trend, else, ends game and shows the end game GUI |     |
-|  5  | click on the "Leaderboard" option in the Game Over menu" | GUI transitions to leaderboard, shows top ten high scores |       |
-|  6  | click "Main Menu" in the Leaderboard GUI | Transitions to the Main Menu GUI again |       |
-|  7  | click "theme" in the Main Menu | toggles between Light Mode and Dark Mode|       |
-|  8  | click "quit" in the Main Menu | exits program |     |
+|  4  | User presses the correct button in game GUI|returns new comparison trend and makes current comparison trend into base trend|     |
+|  5  | User presses the incorect button in game GUI| ends game and shows the end game GUI|       |
+|  6  | click on the "Leaderboard" option in the Game Over menu" | GUI transitions to leaderboard, shows top ten high scores |       |
+|  7  | click "Main Menu" in the Leaderboard GUI | Transitions to the Main Menu GUI again |       |
+|  8  | click "theme" in the Main Menu | toggles between Light Mode and Dark Mode |       |
+|  9  | click "quit" in the Main Menu | exits program |     |
 etc...
