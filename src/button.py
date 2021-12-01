@@ -19,15 +19,17 @@ class Button(pygame.sprite.Sprite):
         
         self.text = text
     
-    def hover(self, mouse_x, mouse_y):
-        #not sure if this should be in this class or in the controller class
-        '''
-        Checks to see if the x and y coordinates of the mouse are within the range of the button size and if it is it return's true
-        '''
-        if mouse_x <= self.x + self.width and mouse_y <= self.y + self.height:
-            return True
-        else:
-            return False
+# =============================================================================
+#     def hover(self, mouse_x, mouse_y):
+#         #not sure if this should be in this class or in the controller class
+#         '''
+#         Checks to see if the x and y coordinates of the mouse are within the range of the button size and if it is it return's true
+#         '''
+#         if mouse_x <= self.x + self.width and mouse_y <= self.y + self.height:
+#             return True
+#         else:
+#             return False
+# =============================================================================
 
     def update(self, new_text):
         '''

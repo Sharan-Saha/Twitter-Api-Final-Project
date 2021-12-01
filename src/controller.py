@@ -42,7 +42,7 @@ class Controller:
         self.player_name = "Player"
         self.current_mode = "Test"
         self.base_name = ""
-        self.comparison_name = ""
+        self.comparison_name = "" 
         
         self.button1 = button.Button(50, 500, "assets/Button.png", "+1 Score") #NOTE: CHANGE OFF OF TEST
         self.button2 = button.Button(650, 500, "assets/Button.png", "END SCREEN")
@@ -53,7 +53,7 @@ class Controller:
         
         
         self.leaderboard_path = Path('src/userinfo.json')
-        if not self.leaderboard_path.is_file():
+        if not self.leaderboard_path.is_file(): #If user info file doesn't exist, create it.
             with open(self.leaderboard_path, 'w') as createfile:
                 json.dump({}, createfile)
 
@@ -112,7 +112,6 @@ class Controller:
         self.comparison_name = self.deck[self.comparison_number][0]
         self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
     
-        self.same_number = False
 
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
