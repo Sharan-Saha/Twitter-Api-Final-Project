@@ -126,7 +126,15 @@ class Controller:
                     position = pygame.mouse.get_pos()
             
                     if self.button1.rect.collidepoint(position):
-                            self.score +=1 
+                            self.score +=1
+                            self.base_number = random.randrange(1, len(self.deck))
+                            self.comparison_number = random.randrange(1, len(self.deck))
+
+        
+
+                            self.base_name = self.deck[self.base_number][0]
+                            self.comparison_name = self.deck[self.comparison_number][0]
+                            self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
 
                             # self.button1.rect = self.button1.rect.inflate(-10,-10)
                             
