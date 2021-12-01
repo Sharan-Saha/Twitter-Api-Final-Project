@@ -61,9 +61,9 @@ class Controller:
         
         self.labels = pygame.sprite.Group()
       
-
+        self.base_count = 0
         self.scores_label = label.Label(350,25, "assets/smalllabel.png", "I show scores")
-        self.question_label = label.Label(75,125, "assets/label.png", f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
+        self.question_label = label.Label(75,125, "assets/label.png", f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
         
         self.labels = pygame.sprite.Group()
         self.labels.add(self.scores_label)
@@ -105,11 +105,14 @@ class Controller:
         self.base_number = random.randrange(0, len(self.deck))
         self.comparison_number = random.randrange(0, len(self.deck))
 
+        self.base_count = self.deck[self.base_number][1]
+        self.comparison_count = self.deck[self.comparison_number][1]
+
 
 
         self.base_name = self.deck[self.base_number][0]
         self.comparison_name = self.deck[self.comparison_number][0]
-        self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
+        self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
 
 
         
@@ -154,7 +157,7 @@ class Controller:
 
                             self.base_count = self.deck[self.base_number][1]
                             self.comparison_count = self.deck[self.comparison_number][1]
-                            self.question_label.update(f"Which is more popular: {self.base_name}, or {self.comparison_name}?")
+                            self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
                             
 
                             # self.button1.rect = self.button1.rect.inflate(-10,-10)
