@@ -166,7 +166,7 @@ class Controller:
                         sys.exit()
                         
                 #clicking gets mouse pos and checks if buttons were clicked
-                if pygame.mouse.get_pressed()[0]:
+                if event.type == pygame.MOUSEBUTTONUP:
                     position = pygame.mouse.get_pos()
             
                     if self.moore_button.rect.collidepoint(position):#If their guess is more
@@ -193,12 +193,7 @@ class Controller:
                                 self.base_count = self.deck[self.base_number][1]
                                 self.comparison_count = self.deck[self.comparison_number][1]
                                 self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
-                            
 
-                            
-                            #updates display before the short delay
-                                pygame.display.flip()
-                                pygame.time.wait(250)
                             else:
                                 self.state = "END" #If guess is wrong, we end the game
                                 if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
@@ -230,6 +225,7 @@ class Controller:
                                 self.base_count = self.deck[self.base_number][1]
                                 self.comparison_count = self.deck[self.comparison_number][1]
                                 self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
+                                
                                 
                             else:
                                 self.state = "END" #Guess was incorrect, game ends
