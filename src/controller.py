@@ -34,7 +34,8 @@ class Controller:
         
         #Font setup
         pygame.font.init()
-        self.font = pygame.font.SysFont('Comic Sans MS', 30)
+        self.default_font = pygame.font.SysFont('Comic Sans MS', 30)
+        self.question_font = pygame.font.SysFont('Comic Sans MS', 20)
 
         #Game Needs these to run
         self.score = 0
@@ -88,9 +89,6 @@ class Controller:
         while True:
             if self.state == "MAIN_MENU":
                 self.menuLoop()
-                
-            elif self.state =="SETTINGS":
-                self.settingsLoop()
                 
             elif self.state == "GAME":
                 self.gameLoop()
@@ -228,6 +226,7 @@ class Controller:
                                 self.base_count = self.deck[self.base_number][1]
                                 self.comparison_count = self.deck[self.comparison_number][1]
                                 self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
+                                
                             else:
                                 self.state = "END" #Guess was incorrect, game ends
                                 if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
@@ -252,32 +251,29 @@ class Controller:
             self.labels.draw(self.screen)
         
             #Renders the text
-            base_trend_txt = self.font.render(self.base_trend_button.text, True, (250,50,50))
-            comparison_trend_txt = self.font.render(self.comparison_trend_button.text, True, (250,50,50))
-            question_label_txt = self.font.render(self.question_label.text, True, (250,50,50))
+            base_trend_txt = self.default_font.render(self.base_trend_button.text, True, (250,50,50))
+            comparison_trend_txt = self.default_font.render(self.comparison_trend_button.text, True, (250,50,50))
+            question_label_txt = self.question_font.render(self.question_label.text, True, (250,50,50))
             
             #Blits text on screen
-            self.screen.blit(question_label_txt, (self.question_label.rect.x + 75, self.question_label.rect.y + 25 ))
+            self.screen.blit(question_label_txt, (self.question_label.rect.x + 35, self.question_label.rect.y + 35 ))
             self.screen.blit(base_trend_txt, (self.base_trend_button.rect.x + 75, self.base_trend_button.rect.y + 25 ))
             self.screen.blit(comparison_trend_txt, (self.comparison_trend_button.rect.x + 50, self.comparison_trend_button.rect.y + 25 ))
 
             #displays and updates specific users high score on screen
-            high_score_board = self.font.render(f"High Score:{self.high_score}", True, (0,0,0))
+            high_score_board = self.default_font.render(f"High Score:{self.high_score}", True, (0,0,0))
             high_score_board_rect = high_score_board.get_rect()
             high_score_board_rect.center = (self.width // 2, ((self.height // 13)))
             self.screen.blit(high_score_board, high_score_board_rect)
 
             #displays and updates score on screen
-            score_board = self.font.render(f"Score:{self.score}", True, (0,0,0))
+            score_board = self.default_font.render(f"Score:{self.score}", True, (0,0,0))
             score_board_rect = score_board.get_rect()
             score_board_rect.center = (self.width // 2, ((self.height // 8)))
             self.screen.blit(score_board, score_board_rect)
             
             pygame.display.flip()
         
-    def settingsLoop(self): #WILLL BE DELETED
-        pass
-    
     
     def menuLoop(self):
         '''
