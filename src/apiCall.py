@@ -1,6 +1,6 @@
 from os import read
 import tweepy
-import apiCodes
+from src import apiCodes
 import json
 import time
 from pathlib import Path
