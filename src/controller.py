@@ -38,8 +38,8 @@ class Controller:
         #Font setup
         pygame.font.init()
         self.default_font = pygame.font.SysFont('Menlo', 40, bold=True)
-        self.question_font = pygame.font.SysFont('menlo', 24)
-        self.score_font = pygame.font.SysFont('Menlo', 30)
+        self.question_font = pygame.font.SysFont('Menlo', 28, bold=True)
+        self.score_font = pygame.font.SysFont('Menlo', 30, bold=True)
 
         #Game Needs these to run
         self.score = 0
