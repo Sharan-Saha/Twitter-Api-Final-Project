@@ -282,7 +282,7 @@ class Controller:
         args:None
         return:None
         '''
-        if self.current_theme == "Light":
+        if self.current_theme == "Light":#If the theme is light, lightmode is used. Otherwise the dark theme is used.
             self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         else:
             self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_DARK)            
@@ -368,7 +368,7 @@ class Controller:
         Args: None
         Returns: None
         '''
-        if self.current_theme == "Light":
+        if self.current_theme == "Light": #If the theme is light, lightmode is used. Otherwise the dark theme is used.
             self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         else:
             self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_DARK)
@@ -405,7 +405,7 @@ class Controller:
         args:None
         return:None
         '''
-        if self.current_theme == "Light":
+        if self.current_theme == "Light":#If the theme is light, lightmode is used. Otherwise the dark theme is used.
             self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         else:
             self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_DARK)
