@@ -283,7 +283,7 @@ class Controller:
         '''
         self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name, maxchar=10)
-        self.main_menu.add.selector('Theme :', [('Light', 1), ('Dark', 2)], onchange=self.set_mode) #mAKE SURE TO CHANGE SETMODE
+        self.main_menu.add.selector('Theme :', [('Light', 1), ('Dark', 2)], onchange=self.set_theme) 
         self.main_menu.add.button('Play', self.start_the_game).background_inflate_to_selection_effect()
         self.main_menu.add.button('Leaderboard', self.view_leaderboard)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
@@ -324,22 +324,16 @@ class Controller:
         
     
 
-    def set_mode(self, mode, option):
+    def set_theme(self, mode, option):
         '''
         Doesn't do anything rn, but in the future would swithc it to a timed mode
         args:None
         return:None
         '''
-        self.current_mode = mode[0][0]
+        self.current_theme = mode[0][0]
         print("Toggled.", option)    
 
         
-        
-    def view_settings(self):
-        '''
-        Goes to settings
-        '''
-        pass
     
     def view_leaderboard(self):
         '''
@@ -392,7 +386,10 @@ class Controller:
         return:None
         '''
         self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+        self.end.add.label("You lost!")
         self.end.add.label(f"Score:{self.score}")
+        self.end.add.label(f"{self.base_name} had {self.base_count} tweets.")
+        self.end.add.label(f"{self.comparison_name} had {self.comparison_count} tweets.")
         self.end.add.button('Play again', self.restart_the_game)
         self.end.add.button('Main Menu', self.go_to_menu_end)
         self.end.add.button('Leaderboard', self.view_leaderboard_end)
