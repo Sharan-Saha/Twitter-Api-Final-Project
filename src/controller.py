@@ -54,7 +54,9 @@ class Controller:
         self.comparison_name = "comparison" 
         self.base_count = 0
 
-        self.apiCall = apiCall.ApiCall().getTrends()
+        #Defines an Api call object to get our new trends 
+        self.apiCall = apiCall.ApiCall()
+        self.apiCall.getTrends()
         
         
         #adds our buttons
@@ -111,7 +113,9 @@ class Controller:
         args:None
         return:None
         '''
-        self.apiCall
+        self.apiCall.getTrends() #Refreshes trends if more than 15 minutes have passed
+        
+        
         with open("src/trends.json") as trends: #reads the trends, makes a deck out with them, and removes the timestamp.
             self.deck = json.load(trends)
             self.deck.pop(0)
@@ -308,9 +312,6 @@ class Controller:
         '''
         
         self.main_menu.disable()
-        
-        #Updates trends.json if it has been longer than 15 minutes since trends were last updated
-        apiCall.ApiCall.getTrends
         
         
         #Gets an updated version of player stats and leaderboard upon game start
