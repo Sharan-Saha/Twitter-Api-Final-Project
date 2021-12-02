@@ -28,8 +28,10 @@ class Controller:
         pygame.display.set_icon(samoore)
         
         #Background
-        self.background = pygame.Surface(self.screen.get_size()).convert()
-        self.background.fill([250, 250, 250])  # set the background to white
+        self.light_background = pygame.image.load('assets/Light_Background.png').convert()
+        self.dark_background = pygame.image.load('assets/Dark_Background.png').convert()
+        self.background = pygame.transform.scale(self.light_background, (1000, 800))
+        self.current_theme = "Light"
     
         
         #Font setup
@@ -153,6 +155,7 @@ class Controller:
             
         while self.state == "GAME":
             
+            self.screen.blit(self.background, (0,0))
             for event in pygame.event.get():
                 #Can quit by hitting the x or pushing q
                 if event.type==pygame.QUIT:
@@ -251,9 +254,9 @@ class Controller:
             self.labels.draw(self.screen)
         
             #Renders the text
-            moore_button_txt = self.default_font.render(self.moore_button.text, True, (250,50,50))
-            less_button_txt = self.default_font.render(self.less_button.text, True, (250,50,50))
-            question_label_txt = self.question_font.render(self.question_label.text, True, (250,50,50))
+            moore_button_txt = self.default_font.render(self.moore_button.text, True, (0,0,0))
+            less_button_txt = self.default_font.render(self.less_button.text, True, (0,0,0))
+            question_label_txt = self.question_font.render(self.question_label.text, True, (0,0,0))
             
             #Blits text on screen
             self.screen.blit(question_label_txt, (self.question_label.rect.x + 35, self.question_label.rect.y + 35 ))
@@ -272,6 +275,7 @@ class Controller:
             score_board_rect.center = (self.width // 2, ((self.height // 8)))
             self.screen.blit(score_board, score_board_rect)
             
+            
             pygame.display.flip()
         
     
@@ -281,10 +285,16 @@ class Controller:
         args:None
         return:None
         '''
-        self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+        if self.current_theme == "Light":
+            self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+        else:
+            self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_DARK)            
         self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name, maxchar=10)
-        self.main_menu.add.selector('Theme :', [('Light', 1), ('Dark', 2)], onchange=self.set_theme) 
-        self.main_menu.add.button('Play', self.start_the_game).background_inflate_to_selection_effect()
+        if self.current_theme == "Light": #If the current theme is light mode, the menu starts on lightmode. This changes if we go to darkmode.
+            self.main_menu.add.selector('Theme :', [('Light', 1), ('Dark', 2)], onchange=self.set_theme) 
+        else:
+            self.main_menu.add.selector('Theme :', [('Dark', 1), ('Light', 2)], onchange=self.set_theme) 
+        self.main_menu.add.button('Play', self.start_the_game)
         self.main_menu.add.button('Leaderboard', self.view_leaderboard)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
         
@@ -331,7 +341,17 @@ class Controller:
         return:None
         '''
         self.current_theme = mode[0][0]
-        print("Toggled.", option)    
+        if self.current_theme == "Light":
+            self.background = pygame.transform.scale(self.light_background, (1000, 800))
+            self.main_menu.disable() #Disables current menu, restarts the menu loop with light theme
+            self.menuLoop()
+        else:
+            self.background = pygame.transform.scale(self.dark_background, (1000, 800))
+            self.main_menu.disable() #Disables current menu, restarts the menu loop with dark theme
+            self.menuLoop()
+            
+            
+   
 
         
     
@@ -350,9 +370,11 @@ class Controller:
         Args: None
         Returns: None
         '''
-        
-        self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
-        
+        if self.current_theme == "Light":
+            self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+        else:
+            self.leaderboard_menu = pygame_menu.Menu("Leaderboard", 1000, 800, theme=pygame_menu.themes.THEME_DARK)
+           
         
         with open(self.leaderboard_path) as readfile: #Updates the current leaderboard
              self.leaderboard = json.load(readfile)
@@ -385,7 +407,10 @@ class Controller:
         args:None
         return:None
         '''
-        self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+        if self.current_theme == "Light":
+            self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+        else:
+            self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_DARK)
         self.end.add.label("You lost!")
         self.end.add.label(f"Score:{self.score}")
         self.end.add.label(f"{self.base_name} had {self.base_count} tweets.")
