@@ -37,7 +37,7 @@ class Controller:
         
         #Font setup
         pygame.font.init()
-        self.default_font = pygame.font.SysFont('Comic Sans MS', 30)
+        self.default_font = pygame.font.SysFont('Comic Sans MS', 30, bold=True)
         self.question_font = pygame.font.SysFont('Comic Sans MS', 20)
 
         #Game Needs these to run
@@ -69,7 +69,6 @@ class Controller:
             with open(self.leaderboard_path, 'w') as createfile:
                 json.dump({}, createfile)
 
-        
         
         #adds our labels
         self.labels = pygame.sprite.Group()
@@ -139,10 +138,6 @@ class Controller:
 
         #Updates the label to include new information
         self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
-
-        
-
-        
 
 
         #resets scores and highscore
@@ -308,9 +303,11 @@ class Controller:
         
         self.main_menu.disable()
         
-        #Gets an updated version of player stats and leaderboard upon game start
+        #Updates trends.json if it has been longer than 15 minutes since trends were last updated
         apiCall.ApiCall.getTrends
         
+        
+        #Gets an updated version of player stats and leaderboard upon game start
         with open(self.leaderboard_path) as readfile:
             self.leaderboard = json.load(readfile)
             
@@ -349,10 +346,7 @@ class Controller:
             self.menuLoop()
             
             
-   
 
-        
-    
     def view_leaderboard(self):
         '''
         Exits main menu and changes mode to leaderboard
@@ -396,8 +390,7 @@ class Controller:
         self.leaderboard_menu.disable()
         self.state = "MAIN_MENU"
       
-        
-      
+    
         
     def endLoop(self):
         '''
