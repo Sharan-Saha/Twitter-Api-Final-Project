@@ -50,10 +50,11 @@ class Controller:
         
         #Default names for game variables
         self.player_name = "Player"
-        #self.current_mode = "Normal"
         self.base_name = "base"
         self.comparison_name = "comparison" 
         self.base_count = 0
+
+        self.apiCall = apiCall.ApiCall().getTrends()
         
         
         #adds our buttons
@@ -110,8 +111,8 @@ class Controller:
         args:None
         return:None
         '''
-
-        with open("src/trends.json", "r") as trends: #reads the trends, makes a deck out with them, and removes the timestamp.
+        self.apiCall
+        with open("src/trends.json") as trends: #reads the trends, makes a deck out with them, and removes the timestamp.
             self.deck = json.load(trends)
             self.deck.pop(0)
             self.deck.pop()

@@ -56,7 +56,7 @@ class ApiCall:
         Returns: none
 
         """
-        self.path = Path('trends.json')
+        self.path = Path('src/trends.json')
         if self.path.is_file():
             with open(self.path) as readfile:
                 self.trends = json.load(readfile)
