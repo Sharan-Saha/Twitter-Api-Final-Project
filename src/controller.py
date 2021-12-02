@@ -168,7 +168,7 @@ class Controller:
                     
                                 self.score +=1
                                 
-                                self.base_number = random.randrange(0, len(self.deck)) #Chooses two new topics
+                                self.base_number = self.comparison_number #random.randrange(0, len(self.deck)) #Chooses two new topics
                                 self.comparison_number = random.randrange(0, len(self.deck))
 
                                 if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
