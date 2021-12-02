@@ -53,12 +53,12 @@ class Controller:
         
         
         #adds our buttons
-        self.base_trend_button = button.Button(50, 500, "assets/Button.png",  "Moore") 
-        self.comparison_trend_button = button.Button(650, 500, "assets/Button.png", "Less")
+        self.moore_button = button.Button(50, 500, "assets/Button.png",  "Moore") 
+        self.less_button = button.Button(650, 500, "assets/Button.png", "Less")
         
         self.buttons = pygame.sprite.Group()
-        self.buttons.add(self.base_trend_button)
-        self.buttons.add(self.comparison_trend_button)
+        self.buttons.add(self.moore_button)
+        self.buttons.add(self.less_button)
           
         #Sets up leaderboard path and creates a new userinfo file if one does not exist
         self.leaderboard_path = Path('src/userinfo.json')
@@ -165,7 +165,7 @@ class Controller:
                 if pygame.mouse.get_pressed()[0]:
                     position = pygame.mouse.get_pos()
             
-                    if self.base_trend_button.rect.collidepoint(position):#If their guess is more
+                    if self.moore_button.rect.collidepoint(position):#If their guess is more
                             if self.base_count < self.comparison_count:#If the guess is correct... score!
                     
                                 self.score +=1
@@ -203,7 +203,7 @@ class Controller:
                                     with open(self.leaderboard_path, 'w') as outfile:
                                         json.dump(self.leaderboard, outfile)
                                         
-                    elif self.comparison_trend_button.rect.collidepoint(position):
+                    elif self.less_button.rect.collidepoint(position):
                             if self.base_count > self.comparison_count:  #If their guess is less, correct!    
                     
                                 self.score +=1
@@ -251,14 +251,14 @@ class Controller:
             self.labels.draw(self.screen)
         
             #Renders the text
-            base_trend_txt = self.default_font.render(self.base_trend_button.text, True, (250,50,50))
-            comparison_trend_txt = self.default_font.render(self.comparison_trend_button.text, True, (250,50,50))
+            moore_button_txt = self.default_font.render(self.moore_button.text, True, (250,50,50))
+            less_button_txt = self.default_font.render(self.less_button.text, True, (250,50,50))
             question_label_txt = self.question_font.render(self.question_label.text, True, (250,50,50))
             
             #Blits text on screen
             self.screen.blit(question_label_txt, (self.question_label.rect.x + 35, self.question_label.rect.y + 35 ))
-            self.screen.blit(base_trend_txt, (self.base_trend_button.rect.x + 75, self.base_trend_button.rect.y + 25 ))
-            self.screen.blit(comparison_trend_txt, (self.comparison_trend_button.rect.x + 50, self.comparison_trend_button.rect.y + 25 ))
+            self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 100, self.moore_button.rect.y + 20 ))
+            self.screen.blit(less_button_txt, (self.less_button.rect.x + 120, self.less_button.rect.y + 20 ))
 
             #displays and updates specific users high score on screen
             high_score_board = self.default_font.render(f"High Score:{self.high_score}", True, (0,0,0))
