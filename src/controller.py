@@ -391,8 +391,8 @@ class Controller:
         self.end.add.label(f"{self.base_name} had {self.base_count} tweets.")
         self.end.add.label(f"{self.comparison_name} had {self.comparison_count} tweets.")
         self.end.add.button('Play again', self.restart_the_game)
-        self.end.add.button('Main Menu', self.go_to_menu_end)
         self.end.add.button('Leaderboard', self.view_leaderboard_end)
+        self.end.add.button('Main Menu', self.go_to_menu_end)
         self.end.add.button('Quit', pygame_menu.events.EXIT)
         
         self.end.mainloop(self.screen)
