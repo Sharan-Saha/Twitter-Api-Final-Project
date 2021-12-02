@@ -139,10 +139,6 @@ class Controller:
         #Updates the label to include new information
         self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
 
-
-        #resets scores and highscore
-        self.score = 0
-        self.high_score = 0 
         
         #updates highscore to match player data
         if self.player_name in self.leaderboard:
@@ -410,6 +406,10 @@ class Controller:
         self.end.add.button('Leaderboard', self.view_leaderboard_end)
         self.end.add.button('Main Menu', self.go_to_menu_end)
         self.end.add.button('Quit', pygame_menu.events.EXIT)
+        
+        #resets scores and highscore
+        self.score = 0
+        self.high_score = 0 
         
         self.end.mainloop(self.screen)
         pygame.display.flip()
