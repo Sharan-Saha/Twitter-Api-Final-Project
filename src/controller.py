@@ -2,6 +2,7 @@ import sys
 import json
 import random
 from pathlib import Path
+from src import apiCall
 import pygame
 import pygame_menu
 
@@ -310,8 +311,9 @@ class Controller:
         '''
         
         self.main_menu.disable()
-         
+        
         #Gets an updated version of player stats and leaderboard upon game start
+        apiCall.ApiCall.getTrends
         
         with open(self.leaderboard_path) as readfile:
             self.leaderboard = json.load(readfile)
