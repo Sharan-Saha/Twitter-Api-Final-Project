@@ -257,8 +257,8 @@ class Controller:
             
             #Blits text on screen
             self.screen.blit(question_label_txt, (self.question_label.rect.x + 35, self.question_label.rect.y + 35 ))
-            self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 75, self.moore_button.rect.y + 25 ))
-            self.screen.blit(less_button_txt, (self.less_button.rect.x + 50, self.less_button.rect.y + 25 ))
+            self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 100, self.moore_button.rect.y + 20 ))
+            self.screen.blit(less_button_txt, (self.less_button.rect.x + 120, self.less_button.rect.y + 20 ))
 
             #displays and updates specific users high score on screen
             high_score_board = self.default_font.render(f"High Score:{self.high_score}", True, (0,0,0))
