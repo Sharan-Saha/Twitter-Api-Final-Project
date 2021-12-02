@@ -18,7 +18,7 @@ class ApiCall:
     def setApi(self):
         
         self.us_woeid = 23424977
-        self.national_trends = [('#AEWDynamite', 23458), ('Spotify', 3814681), ('Cubs', 34852), ('Apple Music', 333169), ('Stacey Abrams', 78600), ('Stroman', 13222), ('Miro', 19657), ('Wizkid', 146174), ('Alec Baldwin', 20690), ('SCOTUS', 159898), ('Igor', 17622), ('Most Played', 39722), ('Burna', 32427), ('Punk', 49321), ('Supreme Court', 284140), ('Tems', 32103), ('Ethan Crumbley', 21511), ('Susan Collins', 24192), ('Roe v Wade', 154698), ('Black 2', 43016), ('Hillary', 27057), ('Kemp', 12688)]#self.api.get_place_trends(self.us_woeid)
+        self.national_trends = self.api.get_place_trends(self.us_woeid)
 
         return self.national_trends
     
@@ -30,23 +30,26 @@ class ApiCall:
                 self.trends.append((trend["name"], trend["tweet_volume"]))
         self.trends.append(len(self.trends))
         self.trends.insert(0, time.time())
+        print(self.trends)
 
         return self.trends
     
     def getTrends(self):
-        self.path = Path('src/trends.json')
+        self.path = Path('trends.json')
         if self.path.is_file():
             with open(self.path) as readfile:
                 self.trends = json.load(readfile)
             if self.trends[0] < time.time() - 900:
-                trends = self.callApi(self.setApi())
-            else:
-                self.trends = self.callApi(self.setApi())
-            with open(self.path, "w") as outfile:
-                json.dump(self.trends, outfile)
-    
+                self.trends = self.callApi()
+        else:
+            self.trends = self.callApi()
+            print("False")
+        with open(self.path, "w") as outfile:
+            json.dump(self.trends, outfile)
+
 a = ApiCall()
-print(a.setApi())
+
+a.getTrends()
 
 # def callApi():
 #     codes = apiCodes.Codes().assignValues()
