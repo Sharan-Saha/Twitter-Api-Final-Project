@@ -37,8 +37,8 @@ class Controller:
         
         #Font setup
         pygame.font.init()
-        self.default_font = pygame.font.SysFont('Comic Sans MS', 30, bold=True)
-        self.question_font = pygame.font.SysFont('Comic Sans MS', 20)
+        self.default_font = pygame.font.SysFont('Menlo', 30, bold=True)
+        self.question_font = pygame.font.SysFont('menlo', 20)
 
         #Game Needs these to run
         self.score = 0
@@ -75,12 +75,13 @@ class Controller:
       
         
         self.scores_label = label.Label(350,25, "assets/smalllabel.png", "I show scores")
-        self.question_label = label.Label(75,125, "assets/label.png", f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
-        
+        self.question_label_b = label.Label(75,125, "assets/label.png", f"{self.base_name} has {self.base_count} tweets.")
+        self.question_label_c = label.Label(75,125, "assets/label.png", f"Does {self.comparison_name} have moore or less tweets?")
         self.labels = pygame.sprite.Group()
         self.labels.add(self.scores_label)
-        self.labels.add(self.question_label)
-        
+        self.labels.add(self.question_label_b)
+        self.labels.add(self.question_label_c)
+
 
     def mainLoop(self):
         '''
@@ -137,8 +138,8 @@ class Controller:
         self.comparison_name = self.deck[self.comparison_number][0]
 
         #Updates the label to include new information
-        self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
-
+        self.question_label_b.update(f"{self.base_name} has {self.base_count} tweets.")
+        self.question_label_c.update(f"Does {self.comparison_name} have moore or less tweets?")
         
         #updates highscore to match player data
         if self.player_name in self.leaderboard:
@@ -183,8 +184,8 @@ class Controller:
 
                                 self.base_count = self.deck[self.base_number][1]
                                 self.comparison_count = self.deck[self.comparison_number][1]
-                                self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
-
+                                self.question_label_b.update(f"{self.base_name} has {self.base_count} tweets.")
+                                self.question_label_c.update(f"Does {self.comparison_name} have moore or less tweets?")
                             else:
                                 self.state = "END" #If guess is wrong, we end the game
                                 if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
@@ -215,8 +216,8 @@ class Controller:
 
                                 self.base_count = self.deck[self.base_number][1]
                                 self.comparison_count = self.deck[self.comparison_number][1]
-                                self.question_label.update(f"{self.base_name} has {self.base_count} tweets. Does {self.comparison_name} have moore or less tweets?")
-                                
+                                self.question_label_b.update(f"{self.base_name} has {self.base_count} tweets.")
+                                self.question_label_c.update(f"Does {self.comparison_name} have moore or less tweets?")
                                 
                             else:
                                 self.state = "END" #Guess was incorrect, game ends
@@ -244,10 +245,17 @@ class Controller:
             #Renders the text
             moore_button_txt = self.default_font.render(self.moore_button.text, True, (0,0,0))
             less_button_txt = self.default_font.render(self.less_button.text, True, (0,0,0))
-            question_label_txt = self.question_font.render(self.question_label.text, True, (0,0,0))
+            question_label_b_txt = self.question_font.render(self.question_label_b.text, True, (0,0,0))
+            question_label_c_txt = self.question_font.render(self.question_label_c.text, True, (0,0,0))
+
+            #assigns center and blits text on screen
             
-            #Blits text on screen
-            self.screen.blit(question_label_txt, (self.question_label.rect.x + 35, self.question_label.rect.y + 35 ))
+            question_label_b_rect = question_label_b_txt.get_rect()
+            question_label_b_rect.center = (self.width // 2, ((self.question_label_b.rect.y + 30)))
+            self.screen.blit(question_label_b_txt, question_label_b_rect)
+            question_label_c_rect = question_label_c_txt.get_rect()
+            question_label_c_rect.center = (self.width // 2, (self.question_label_b.rect.y) + 60)
+            self.screen.blit(question_label_c_txt, question_label_c_rect)
             self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 100, self.moore_button.rect.y + 20 ))
             self.screen.blit(less_button_txt, (self.less_button.rect.x + 120, self.less_button.rect.y + 20 ))
 
