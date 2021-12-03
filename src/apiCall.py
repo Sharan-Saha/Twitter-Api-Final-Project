@@ -45,7 +45,6 @@ class ApiCall:
                 self.trends.append((trend["name"], trend["tweet_volume"]))
         self.trends.append(len(self.trends))
         self.trends.insert(0, time.time())
-        print(self.trends)
 
         return self.trends
         
@@ -67,4 +66,5 @@ class ApiCall:
             print("False")
         with open(self.path, "w") as outfile:
             json.dump(self.trends, outfile)
+        print("trends updated!")
 
