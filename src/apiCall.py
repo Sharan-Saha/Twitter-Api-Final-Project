@@ -39,11 +39,11 @@ class ApiCall:
         """
         self.national_trends = self.setApi()
         self.trends = []
-        for trend in self.national_trends[0]["trends"][:50]:
+        for trend in self.national_trends[0]["trends"][:50]: #For every trend, we make sure there is a number associated with it
             if type(trend["tweet_volume"]) == int:
-                self.trends.append((trend["name"], trend["tweet_volume"]))
-        self.trends.append(len(self.trends))
-        self.trends.insert(0, time.time())
+                self.trends.append((trend["name"], trend["tweet_volume"]))#If there is a number associated with it, we append that to the trends
+        self.trends.append(len(self.trends))#Adds the length of the trends to the end of the list
+        self.trends.insert(0, time.time()) #Adds the time of call to the beginning of the list
 
         return self.trends
         
@@ -58,11 +58,11 @@ class ApiCall:
         if self.path.is_file():
             with open(self.path) as readfile:
                 self.trends = json.load(readfile)
-            if self.trends[0] < time.time() - 900:
+            if self.trends[0] < time.time() - 900:# If it has been longer than 15 minutes, the trends are updated
                 self.trends = self.callApi()
         else:
             self.trends = self.callApi()
-            print("False")
+            print("Creating trends.json")
         with open(self.path, "w") as outfile:
             json.dump(self.trends, outfile)
             print("Trends updated!")

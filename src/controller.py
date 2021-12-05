@@ -210,10 +210,10 @@ class Controller:
                                 if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
                                     self.same_number = True
         
-                                while self.same_number:
-                                    self.comparison_number = random.randrange(1, len(self.deck))
-                                    if self.comparison_number != self.base_number:
-                                        self.same_number = False
+                                    while self.same_number:
+                                        self.comparison_number = random.randrange(1, len(self.deck))
+                                        if self.comparison_number != self.base_number:
+                                            self.same_number = False
 
         
                                 #Updating the names
