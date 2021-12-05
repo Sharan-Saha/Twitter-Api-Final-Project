@@ -44,7 +44,7 @@ class ApiCall:
                 self.trends.append((trend["name"], trend["tweet_volume"]))#If there is a number associated with it, we append that to the trends
         self.trends.append(len(self.trends))#Adds the length of the trends to the end of the list
         self.trends.insert(0, time.time()) #Adds the time of call to the beginning of the list
-
+        print("Trends Updated!")
         return self.trends
         
     def getTrends(self):
@@ -62,8 +62,5 @@ class ApiCall:
                 self.trends = self.callApi()
         else:
             self.trends = self.callApi()
-            print("Creating trends.json")
         with open(self.path, "w") as outfile:
             json.dump(self.trends, outfile)
-            print("Trends updated!")
-
