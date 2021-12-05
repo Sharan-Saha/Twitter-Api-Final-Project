@@ -172,8 +172,8 @@ class Controller:
                     
                                 self.score +=1
                                 
-                                self.base_number = self.comparison_number #random.randrange(0, len(self.deck)) #Chooses two new topics
-                                self.comparison_number = random.randrange(0, len(self.deck))
+                                self.base_number = self.comparison_number  #Previous comparison trend becomes the new base trend
+                                self.comparison_number = random.randrange(0, len(self.deck)) #Choses a new comparison trend
 
                                 if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
                                     self.same_number = True
@@ -204,8 +204,8 @@ class Controller:
                             if self.base_count > self.comparison_count:  #If their guess is less, correct!    
                     
                                 self.score +=1
-                                self.base_number = random.randrange(0, len(self.deck))
-                                self.comparison_number = random.randrange(0, len(self.deck))
+                                self.base_number = self.comparison_number #Previous comparison trend becomes the new base trend
+                                self.comparison_number = random.randrange(0, len(self.deck)) #Choses a new comparison trend
 
                                 if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
                                     self.same_number = True

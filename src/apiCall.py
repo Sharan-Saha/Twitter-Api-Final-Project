@@ -1,4 +1,3 @@
-from os import read
 import tweepy
 from src import apiCodes
 import json
@@ -66,5 +65,5 @@ class ApiCall:
             print("False")
         with open(self.path, "w") as outfile:
             json.dump(self.trends, outfile)
-        print("trends updated!")
+            print("Trends updated!")
 
