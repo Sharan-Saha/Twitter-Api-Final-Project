@@ -37,9 +37,9 @@ class Controller:
         
         #Font setup
         pygame.font.init()
-        self.default_font = pygame.font.SysFont('Menlo', 40, bold=True)
-        self.question_font = pygame.font.SysFont('Menlo', 28, bold=True)
-        self.score_font = pygame.font.SysFont('Menlo', 30, bold=True)
+        self.default_font = pygame.font.SysFont('Arial', 40, bold=True)
+        self.question_font = pygame.font.SysFont('Arial', 28, bold=True)
+        self.score_font = pygame.font.SysFont('Arial', 30, bold=True)
 
         #Game Needs these to run
         self.score = 0
@@ -172,8 +172,8 @@ class Controller:
                     
                                 self.score +=1
                                 
-                                self.base_number = self.comparison_number #random.randrange(0, len(self.deck)) #Chooses two new topics
-                                self.comparison_number = random.randrange(0, len(self.deck))
+                                self.base_number = self.comparison_number  #Previous comparison trend becomes the new base trend
+                                self.comparison_number = random.randrange(0, len(self.deck)) #Choses a new comparison trend
 
                                 if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
                                     self.same_number = True
@@ -204,16 +204,16 @@ class Controller:
                             if self.base_count > self.comparison_count:  #If their guess is less, correct!    
                     
                                 self.score +=1
-                                self.base_number = random.randrange(0, len(self.deck))
-                                self.comparison_number = random.randrange(0, len(self.deck))
+                                self.base_number = self.comparison_number #Previous comparison trend becomes the new base trend
+                                self.comparison_number = random.randrange(0, len(self.deck)) #Choses a new comparison trend
 
                                 if self.base_number == self.comparison_number: #If the trends are the same thing, we change that
                                     self.same_number = True
         
-                                while self.same_number:
-                                    self.comparison_number = random.randrange(1, len(self.deck))
-                                    if self.comparison_number != self.base_number:
-                                        self.same_number = False
+                                    while self.same_number:
+                                        self.comparison_number = random.randrange(1, len(self.deck))
+                                        if self.comparison_number != self.base_number:
+                                            self.same_number = False
 
         
                                 #Updating the names
@@ -291,20 +291,20 @@ class Controller:
             self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         else:
             self.main_menu = pygame_menu.Menu('Moore or Less!?', 1000, 800, theme=pygame_menu.themes.THEME_DARK)            
-        self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.update_name, maxchar=10)
+        self.main_menu.add.text_input('Name :', default=self.player_name, onchange=self.updateName, maxchar=10)
         if self.current_theme == "Light": #If the current theme is light mode, the menu starts on lightmode. This changes if we go to darkmode.
-            self.main_menu.add.selector('Theme :', [('Light', 1), ('Dark', 2)], onchange=self.set_theme) 
+            self.main_menu.add.selector('Theme :', [('Light', 1), ('Dark', 2)], onchange=self.setTheme) 
         else:
-            self.main_menu.add.selector('Theme :', [('Dark', 1), ('Light', 2)], onchange=self.set_theme) 
-        self.main_menu.add.button('Play', self.start_the_game)
-        self.main_menu.add.button('Leaderboard', self.view_leaderboard)
+            self.main_menu.add.selector('Theme :', [('Dark', 1), ('Light', 2)], onchange=self.setTheme) 
+        self.main_menu.add.button('Play', self.startTheGame)
+        self.main_menu.add.button('Leaderboard', self.viewLeaderboard)
         self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
         
        
         self.main_menu.mainloop(self.screen)
         pygame.display.flip()
         
-    def start_the_game(self):
+    def startTheGame(self):
         '''
         Exits menu and changes mode
         args:None
@@ -326,7 +326,7 @@ class Controller:
         self.state = "GAME"
          
          
-    def update_name(self, name):
+    def updateName(self, name):
         '''
         When player changes their name, the controller keeps track of that
         args:None
@@ -336,7 +336,7 @@ class Controller:
         
     
 
-    def set_theme(self, mode, option):
+    def setTheme(self, mode, option):
         '''
         Doesn't do anything rn, but in the future would swithc it to a timed mode
         args:None
@@ -354,7 +354,7 @@ class Controller:
             
             
 
-    def view_leaderboard(self):
+    def viewLeaderboard(self):
         '''
         Exits main menu and changes mode to leaderboard
         args:None
@@ -384,11 +384,11 @@ class Controller:
                 self.leaderboard_menu.add.label(f"{i+1}. Player || SCORE:N/A") 
             else:
                 self.leaderboard_menu.add.label(f"{i+1}. {current_highscores[i][0]} || SCORE:{current_highscores[i][1]}") #Adds player scores
-        self.leaderboard_menu.add.button("Main Menu", self.go_to_menu_leaderboard)
+        self.leaderboard_menu.add.button("Main Menu", self.goToMenuLeaderboard)
         self.leaderboard_menu.mainloop(self.screen)
         pygame.display.flip()
       
-    def go_to_menu_leaderboard(self):
+    def goToMenuLeaderboard(self):
         '''
         Exits leaderboard menu and changes mode to main menu
         args:None
@@ -406,50 +406,50 @@ class Controller:
         return:None
         '''
         if self.current_theme == "Light":#If the theme is light, lightmode is used. Otherwise the dark theme is used.
-            self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
+            self.end_menu = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_BLUE)
         else:
-            self.end = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_DARK)
-        self.end.add.label("You lost!")
-        self.end.add.label(f"Score:{self.score}")
-        self.end.add.label(f"{self.base_name} had {self.base_count} tweets.")
-        self.end.add.label(f"{self.comparison_name} had {self.comparison_count} tweets.")
-        self.end.add.button('Play again', self.restart_the_game)
-        self.end.add.button('Leaderboard', self.view_leaderboard_end)
-        self.end.add.button('Main Menu', self.go_to_menu_end)
-        self.end.add.button('Quit', pygame_menu.events.EXIT)
+            self.end_menu = pygame_menu.Menu('Game Over!', 1000, 800, theme=pygame_menu.themes.THEME_DARK)
+        self.end_menu.add.label("You lost!")
+        self.end_menu.add.label(f"Score:{self.score}")
+        self.end_menu.add.label(f"{self.base_name} had {self.base_count} tweets.")
+        self.end_menu.add.label(f"{self.comparison_name} had {self.comparison_count} tweets.")
+        self.end_menu.add.button('Play again', self.restartTheGame)
+        self.end_menu.add.button('Leaderboard', self.viewLeaderboardEnd)
+        self.end_menu.add.button('Main Menu', self.goToMenuEnd)
+        self.end_menu.add.button('Quit', pygame_menu.events.EXIT)
         
         #resets scores and highscore
         self.score = 0
         self.high_score = 0 
         
-        self.end.mainloop(self.screen)
+        self.end_menu.mainloop(self.screen)
         pygame.display.flip()
         
-    def restart_the_game(self):
+    def restartTheGame(self):
         '''
         Exits menu and changes mode
         args:None
         return:None
         '''
-        self.end.disable()
+        self.end_menu.disable()
         self.state = "GAME"
     
-    def go_to_menu_end(self):
+    def goToMenuEnd(self):
         '''
         Exits menu and changes mode
         args:None
         return:None
         '''
-        self.end.disable()
+        self.end_menu.disable()
         self.state = "MAIN_MENU"
         
-    def view_leaderboard_end(self):
+    def viewLeaderboardEnd(self):
         '''
         Exits menu and changes mode
         args:None
         return:None
         '''
-        self.end.disable()
+        self.end_menu.disable()
         self.state = "LEADERBOARD"    
         
         
