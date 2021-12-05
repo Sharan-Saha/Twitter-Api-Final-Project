@@ -22,11 +22,14 @@ We will start off working with pygame and once we have work that fulfills the re
 ***    
 
 ## User Interface Design *(Front End Specialist)*
-* << A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program. >>
 	![Main Menu](assets/MainMenu.jpg)
-	![Game Over](assets/GameOver.jpg)
+	Main Menu:Presents our game's title, along with buttons allowing the user to start the game, view a leaderboard, or access settings.
 	![Selection](assets/Selection.jpg)
+	Selection:Users are presented with two tweets, and must chose which has more tweets. They may click either option, or access settings. Orininally the options would have photos, but some trending twitter topics are controversial so this idea was scrapped.
+	![Game Over](assets/GameOver.jpg)
+	Game Over: Users are shown which tweet had more tweets, and have the options to play again, view the leaderboard, or access settings.
 	![Settings](assets/Settings.jpg)
+	Settings:Users have the ability to make the game full screen, or change other game settings. This menu was later scrapped and integrated with the main menu.
 
     * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
 * << You should also have a screenshot of each screen for your final GUI >>
@@ -77,7 +80,7 @@ The Project is broken down into the following file structure:
 
 ### Front End Specialist - Clay B
 
-<< Front-end lead conducted significant research on... >>
+Front-end lead conducted significant research on making GUIs in pygame and the pygame-menus library. We wanted to ensure the menus we created were high quality and functional, so Clay researched a libarary to help us with this. In addition, Clay wrote the GUI portions of our controller class, coded our menus, and was responsible for placing our models on screen.
 
 ### Back End Specialist - Sharan S
 
