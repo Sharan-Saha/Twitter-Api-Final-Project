@@ -22,7 +22,7 @@ We will start off working with pygame and once we have work that fulfills the re
 ***    
 
 ## User Interface Design *(Front End Specialist)*
-*Initial design concepts
+* Initial GUI concepts
 	* ![Main Menu](assets/MainMenu.jpg)
 	* ![Selection](assets/Selection.jpg)
 	* ![Game Over](assets/GameOver.jpg)
