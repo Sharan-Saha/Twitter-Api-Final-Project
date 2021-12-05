@@ -22,17 +22,17 @@ We will start off working with pygame and once we have work that fulfills the re
 ***    
 
 ## User Interface Design *(Front End Specialist)*
+*Initial design concepts
 	* ![Main Menu](assets/MainMenu.jpg)
 	* ![Selection](assets/Selection.jpg)
 	* ![Game Over](assets/GameOver.jpg)
 	* ![Settings](assets/Settings.jpg)
 	
-		* Main Menu:Presents our game's title, along with buttons allowing the user to start the game, view a leaderboard, or access settings.
-		* Selection:Users are presented with two tweets, and must chose which has more tweets. They may click either option, or access settings. Orininally the options would have photos, but some trending twitter topics are controversial so this idea was scrapped.
-		* Game Over: Users are shown which tweet had more tweets, and have the options to play again, view the leaderboard, or access settings.
-		* Settings:Users have the ability to make the game full screen, or change other game settings. This menu was later scrapped and integrated with the main menu.
+	* Main Menu:Presents our game's title, along with buttons allowing the user to start the game, view a leaderboard, or access settings.
+	* Selection:Users are presented with two tweets, and must chose which has more tweets. They may click either option, or access settings. Orininally the options would have photos, but some trending twitter topics are controversial so this idea was scrapped.
+	* Game Over: Users are shown which tweet had more tweets, and have the options to play again, view the leaderboard, or access settings.
+	* Settings:Users have the ability to make the game full screen, or change other game settings. This menu was later scrapped and integrated with the main menu.
 
-    * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
 * << You should also have a screenshot of each screen for your final GUI >>
 
 ***        
