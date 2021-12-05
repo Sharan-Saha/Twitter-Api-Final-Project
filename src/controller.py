@@ -121,6 +121,8 @@ class Controller:
             self.deck.pop(0)
             self.deck.pop()
         
+        ### This can all be a function
+
         #Randomly selects 2 trends
         self.base_number = random.randrange(0, len(self.deck))
         self.comparison_number = random.randrange(0, len(self.deck))
@@ -151,6 +153,7 @@ class Controller:
         if self.player_name in self.leaderboard:
             self.high_score = self.leaderboard[self.player_name]
             
+        ###Until here
             
         while self.state == "GAME":
             
@@ -170,6 +173,7 @@ class Controller:
                     if self.moore_button.rect.collidepoint(position):#If their guess is more
                             if self.base_count < self.comparison_count:#If the guess is correct... score!
                     
+                                ###this can be a function
                                 self.score +=1
                                 
                                 self.base_number = self.comparison_number  #Previous comparison trend becomes the new base trend
@@ -183,7 +187,7 @@ class Controller:
                                         if self.comparison_number != self.base_number:
                                             self.same_number = False
 
-        
+
                                 #name updating
                                 self.base_name = self.deck[self.base_number][0]
                                 self.comparison_name = self.deck[self.comparison_number][0]
@@ -192,6 +196,7 @@ class Controller:
                                 self.comparison_count = self.deck[self.comparison_number][1]
                                 self.question_label_b.update(f"{self.base_name} has {self.base_count} tweets.")
                                 self.question_label_c.update(f"Does {self.comparison_name} have moore or less tweets?")
+
                             else:
                                 self.state = "END" #If guess is wrong, we end the game
                                 if self.score > self.leaderboard[self.player_name]: #Only updates save & leaderboard if the score is the player's highscore
@@ -199,6 +204,8 @@ class Controller:
 
                                     with open(self.leaderboard_path, 'w') as outfile:
                                         json.dump(self.leaderboard, outfile)
+                                        #func(bt,ct)
+                                        # func(ct,bt)
                                         
                     elif self.less_button.rect.collidepoint(position):
                             if self.base_count > self.comparison_count:  #If their guess is less, correct!    
@@ -263,6 +270,7 @@ class Controller:
             question_label_c_rect.center = (self.width // 2, (self.question_label_b.rect.y) + 70)
             self.screen.blit(question_label_c_txt, question_label_c_rect)
             self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 80, self.moore_button.rect.y + 25 ))
+            ### Scooch the Less button text to the center of it's button
             self.screen.blit(less_button_txt, (self.less_button.rect.x + 80, self.less_button.rect.y + 25 ))
 
             #displays and updates specific users high score on screen
@@ -338,8 +346,8 @@ class Controller:
 
     def setTheme(self, mode, option):
         '''
-        Doesn't do anything rn, but in the future would swithc it to a timed mode
-        args:None
+        changes the theme between light and dark
+        args:self, mode(str), option(Int)
         return:None
         '''
         self.current_theme = mode[0][0]
