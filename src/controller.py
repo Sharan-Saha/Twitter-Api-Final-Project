@@ -53,7 +53,6 @@ class Controller:
 
         #Defines an Api call object to get our new trends 
         self.apiCall = apiCall.ApiCall()
-        self.apiCall.getTrends()
         
         #adds our buttons
         self.moore_button = button.Button(50, 500, "assets/Button.png",  "Moore") 

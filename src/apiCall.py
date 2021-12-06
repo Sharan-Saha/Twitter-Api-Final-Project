@@ -27,9 +27,12 @@ class ApiCall:
         Returns: self.national_trends
         '''
         self.us_woeid = 23424977
-        self.national_trends = self.api.get_place_trends(self.us_woeid)
+        try:
+            self.national_trends = self.api.get_place_trends(self.us_woeid)
+            return self.national_trends
+        except:
+            print("Api Call Not Succesful")
 
-        return self.national_trends
     
     def callApi(self):
         '''
