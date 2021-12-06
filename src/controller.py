@@ -235,9 +235,9 @@ class Controller:
             question_label_c_rect = question_label_c_txt.get_rect()
             question_label_c_rect.center = (self.width // 2, (self.question_label_b.rect.y) + 70)
             self.screen.blit(question_label_c_txt, question_label_c_rect)
-            self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 80, self.moore_button.rect.y + 25 ))
+            self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 95, self.moore_button.rect.y + 20 ))
             ### Scooch the Less button text to the center of it's button
-            self.screen.blit(less_button_txt, (self.less_button.rect.x + 80, self.less_button.rect.y + 25 ))
+            self.screen.blit(less_button_txt, (self.less_button.rect.x + 110, self.less_button.rect.y + 20 ))
 
             #displays and updates specific users high score on screen
             high_score_board = self.score_font.render(f"High Score:{self.high_score}", True, (0,0,0))
