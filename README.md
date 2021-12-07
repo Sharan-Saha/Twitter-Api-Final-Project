@@ -21,7 +21,7 @@ We will start off working with pygame and once we have work that fulfills the re
 
 ***    
 
-## User Interface Design *(Front End Specialist)*
+## User Interface Design 
 * Initial GUI concepts
 	* ![Main Menu Concept](assets/MainMenu.jpg)
 	* ![Selection Concept](assets/Selection.jpg)

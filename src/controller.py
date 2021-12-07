@@ -190,6 +190,16 @@ class Controller:
         self.base_number = random.randrange(0, len(self.deck))
         self.comparison_number = random.randrange(0, len(self.deck))
         self.trendCheck()
+        
+        #Renders the text for moore and less buttons, and assigns the text centers, and blits them on screen
+        moore_button_txt = self.default_font.render(self.moore_button.text, True, (0,0,0))
+        less_button_txt = self.default_font.render(self.less_button.text, True, (0,0,0))
+        moore_button_rect = moore_button_txt.get_rect()
+        moore_button_rect.center = (self.width / 5.25, (self.height / 1.48 ))
+        less_button_rect = less_button_txt.get_rect()
+        less_button_rect.center = (self.width / 1.25, (self.height / 1.48))
+            
+        
 
         while self.state == "GAME":
             
@@ -222,21 +232,19 @@ class Controller:
             self.labels.draw(self.screen)
         
             #Renders the text
-            moore_button_txt = self.default_font.render(self.moore_button.text, True, (0,0,0))
-            less_button_txt = self.default_font.render(self.less_button.text, True, (0,0,0))
             question_label_b_txt = self.question_font.render(self.question_label_b.text, True, (0,0,0))
             question_label_c_txt = self.question_font.render(self.question_label_c.text, True, (0,0,0))
-
-            #assigns center and blits text on screen
+            
+            #Assigns center for question text and blits it on the screen
             question_label_b_rect = question_label_b_txt.get_rect()
-            question_label_b_rect.center = (self.width // 2, ((self.question_label_b.rect.y + 35)))
-            self.screen.blit(question_label_b_txt, question_label_b_rect)
+            question_label_b_rect.center = (self.width // 2, (self.height // 5))
             question_label_c_rect = question_label_c_txt.get_rect()
-            question_label_c_rect.center = (self.width // 2, (self.question_label_b.rect.y) + 70)
+            question_label_c_rect.center = (self.width // 2, (self.height // 4))
+            
+            self.screen.blit(question_label_b_txt, question_label_b_rect)
             self.screen.blit(question_label_c_txt, question_label_c_rect)
-            self.screen.blit(moore_button_txt, (self.moore_button.rect.x + 95, self.moore_button.rect.y + 20 ))
-            ### Scooch the Less button text to the center of it's button
-            self.screen.blit(less_button_txt, (self.less_button.rect.x + 110, self.less_button.rect.y + 20 ))
+            self.screen.blit(moore_button_txt, moore_button_rect)
+            self.screen.blit(less_button_txt, less_button_rect)
 
             #displays and updates specific users high score on screen
             high_score_board = self.score_font.render(f"High Score:{self.high_score}", True, (0,0,0))
@@ -247,7 +255,7 @@ class Controller:
             #displays and updates score on screen
             score_board = self.score_font.render(f"Score:{self.score}", True, (0,0,0))
             score_board_rect = score_board.get_rect()
-            score_board_rect.center = (self.width // 2, ((self.height // 8)))
+            score_board_rect.center = (self.width // 2, (self.height // 8))
             self.screen.blit(score_board, score_board_rect)
             
             pygame.display.flip()
