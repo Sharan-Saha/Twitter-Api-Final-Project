@@ -14,8 +14,8 @@
 
 ***
 
-## Project Description *(Software Lead)*
-Our project is a trend guessing game, where a random trend from twitter is shown. This trend, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random trend, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets than the BT. Upon a successful guess, a point is added to the user's score. The object of the game is to obtain the highest score possible. The game ends when the user makes an incorrect guess on what trend has more tweets. Upon losing, the user is presnted with their score, and the number of tweets the CT and BT had. 
+## Project Description 
+Our project is a trend guessing game, where a random trend from twitter is shown. The trends are pulled from twitter using Tweepy, a python based twitter API library. Trends pulled from twitter are then put into a shuffled deck, from which one trend is chosen. This trend, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random trend, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets than the BT. Upon a successful guess, a point is added to the user's score, and if the player has passed the high score for their corresponding name, the high score is updated as well. The objective of the game is to obtain the highest score possible. The game ends when the user makes an incorrect guess on what trend has more tweets. Upon losing, the user is presnted with their score, and the number of tweets the CT and BT had. The user's score is then updated to the leaderboard. 
 
 We will start off working with pygame and once we have work that fulfills the requirements of the project we will incorporate our work into a website and ideally an app. 
 
@@ -38,15 +38,15 @@ We will start off working with pygame and once we have work that fulfills the re
 	* ![Game Over Light](assets/LightGameOverFinal.png)
 	* ![Game Over Dark](assets/DarkGameOverFinal.png)
 
-	* Main Menu:Presents our game's title, along with buttons allowing the user to start the game, view a leaderboard, or access settings.
+	* Main Menu:Presents our game's title, along with buttons allowing the user to start the game, view a leaderboard, or access settings. In the final version, the settings button is replaced with a simple light/dark mode switch, as it's the only user setting.
 	* Selection:Users are presented with two tweets, and must chose which has more tweets. They may click either option, or access settings. Orininally the options would have photos, but some trending twitter topics are controversial so this idea was scrapped.
-	* Game Over:Users are shown which tweet had more tweets, and have the options to play again, view the leaderboard, or access settings.
+	* Game Over:Users are shown tweet counts for both trends, and have the options to play again, view the leaderboard, or access settings.
 	* Leaderboard:Users are presented a list of up to ten other players with their highest scores to see where they rank in comparison to others. If there are less than ten players in the user info, then there are filler posistions displayed where the player name is "Player" and the Score is N/A.
 	* Settings:Users have the ability to make the game full screen, or change other game settings. This menu was later scrapped and integrated with the main menu.
 
 ***        
 
-## Program Design *(Backend Specialist)*
+## Program Design 
 * Non-Standard libraries
     * pygame 
         * https://www.pygame.org/ 
@@ -69,7 +69,7 @@ We will start off working with pygame and once we have work that fulfills the re
     * label
     * Controller
 
-## Project Structure *(Software Lead)*
+## Project Structure 
 
 The Project is broken down into the following file structure:
 * main.py
@@ -82,7 +82,7 @@ The Project is broken down into the following file structure:
     * controller.py
     * label.py
     * trends.json
-    * info.json
+    * userinfo.json
 * assets
     * <all of your media, i.e. images, font files, etc,  gshouldo here)
     * MainMenu.jpg
@@ -90,13 +90,24 @@ The Project is broken down into the following file structure:
     * general_structure.jpg
     * Selection.jpg
     * GameOver.jpg
-* etc
-    * <This is a catch all folder for things that are not part of your project, but you want to keep with your project. Your demo video should go here.>
+    * Button.png
+    * samoore.jpg
+    * Label.png
+    * SmallLabel.png
+    * Dark_Background.png
+    * DarkLeaderboardFinal.png
+    * DarkGameOverFinal.png
+    * DarkMainMenuFinal.png
+    * DarkSelectionFinal.png
+    * Light_Background.png
+    * LightGameOverFinal.png
+    * LightLeaderboardFinal.png
+    * LightMainMenuFinal.png
+    * LightSelectionFinal.png
 
 ***
 
-## Tasks and Responsibilities *(Software Lead)*
-* You must outline the team member roles and who was responsible for each class/method, both individual and collaborative.
+## Tasks and Responsibilities 
 
 ### Software Lead - Senih O
 
@@ -110,7 +121,7 @@ Clay lead conducted significant research on making GUIs in pygame and the pygame
 
 Sharan was responsible for taking raw data from API and formatting it to work with rest of program. The base trends and comparison trends are random items from the list in trends.json, and if they were the same, the comparison trend would be a different trend. Back end also had to make sure the userinfo.json file would be updated if a new player is added or if there is a new high score is reached. 
 
-## Testing *(Software Lead)*
+## Testing 
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
@@ -123,4 +134,3 @@ Sharan was responsible for taking raw data from API and formatting it to work wi
 |  7  | click "Main Menu" in the Leaderboard GUI | Transitions to the Main Menu GUI again |       |
 |  8  | click "theme" in the Main Menu | toggles between Light Mode and Dark Mode |       |
 |  9  | click "quit" in the Main Menu | exits program |     |
-etc...
