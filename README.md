@@ -15,7 +15,7 @@
 ***
 
 ## Project Description *(Software Lead)*
-our project is a trend guessing game, where a random hashtag from twitter is shown. This hastag, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random hashtag, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets associated with then the BT.
+Our project is a trend guessing game, where a random hashtag from twitter is shown. This hastag, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random hashtag, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets than the BT. Upon a successful guess, a point is added to the user's score. The object of the game is to obtain the highest score possible. The game ends when the user makes an incorrect guess on what trend has more tweets. Upon losing, the user is presnted with their score, and the number of tweets the CT and BT had. 
 
 We will start off working with pygame and once we have work that fulfills the requirements of the project we will incorporate our work into a website and ideally an app. 
 
@@ -23,17 +23,26 @@ We will start off working with pygame and once we have work that fulfills the re
 
 ## User Interface Design *(Front End Specialist)*
 * Initial GUI concepts
-	* ![Main Menu](assets/MainMenu.jpg)
-	* ![Selection](assets/Selection.jpg)
-	* ![Game Over](assets/GameOver.jpg)
-	* ![Settings](assets/Settings.jpg)
+	* ![Main Menu Concept](assets/MainMenu.jpg)
+	* ![Selection Concept](assets/Selection.jpg)
+	* ![Game Over Concept](assets/GameOver.jpg)
+	* ![Settings Concept](assets/Settings.jpg)
 	
+* Final GUI 
+	* ![Main Menu Light](assets/LightMainMenuFinal)
+	* ![Main Menu Dark](assets/DarkMainMenuFinal)
+	* ![Leaderboard Light](assets/LightLeaderboardFinal)
+	* ![Leaderboard Dark](assets/DarkLeaderboardFinal)
+	* ![Selection Light](assets/LightSelectionFinal)
+	* ![Selection Dark](assets/LightSelectionFinal)
+	* ![Game Over Light](assets/LightGameOverFinal)
+	* ![Game Over Dark](assets/DarkGameOverFinal)
+
 	* Main Menu:Presents our game's title, along with buttons allowing the user to start the game, view a leaderboard, or access settings.
 	* Selection:Users are presented with two tweets, and must chose which has more tweets. They may click either option, or access settings. Orininally the options would have photos, but some trending twitter topics are controversial so this idea was scrapped.
-	* Game Over: Users are shown which tweet had more tweets, and have the options to play again, view the leaderboard, or access settings.
+	* Game Over:Users are shown which tweet had more tweets, and have the options to play again, view the leaderboard, or access settings.
+	* Leaderboard:Users are presented a list of up to ten other players with their highest scores to see where they rank in comparison to others. If there are less than ten players in the user info, then there are filler posistions displayed where the player name is "Player" and the Score is N/A.
 	* Settings:Users have the ability to make the game full screen, or change other game settings. This menu was later scrapped and integrated with the main menu.
-
-* << You should also have a screenshot of each screen for your final GUI >>
 
 ***        
 
