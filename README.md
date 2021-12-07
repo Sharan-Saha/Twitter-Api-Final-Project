@@ -15,7 +15,7 @@
 ***
 
 ## Project Description *(Software Lead)*
-Our project is a trend guessing game, where a random hashtag from twitter is shown. This hastag, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random hashtag, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets than the BT. Upon a successful guess, a point is added to the user's score. The object of the game is to obtain the highest score possible. The game ends when the user makes an incorrect guess on what trend has more tweets. Upon losing, the user is presnted with their score, and the number of tweets the CT and BT had. 
+Our project is a trend guessing game, where a random trend from twitter is shown. This trend, called the Base Trend (BT), is shown along with the number of tweets associated with it, which is then compared to another random trend, called the Comparison Trend(CT). The user has to guess whether or not the CT has more or less tweets than the BT. Upon a successful guess, a point is added to the user's score. The object of the game is to obtain the highest score possible. The game ends when the user makes an incorrect guess on what trend has more tweets. Upon losing, the user is presnted with their score, and the number of tweets the CT and BT had. 
 
 We will start off working with pygame and once we have work that fulfills the requirements of the project we will incorporate our work into a website and ideally an app. 
 
@@ -73,12 +73,16 @@ We will start off working with pygame and once we have work that fulfills the re
 
 The Project is broken down into the following file structure:
 * main.py
-* bin
+* src
     * apiCall.py
     * apiCodes.py
-    * tweepy
     * Codes.Zip
     * trends.txt
+    * ProjectVenv
+    * controller.py
+    * label.py
+    * trends.json
+    * info.json
 * assets
     * <all of your media, i.e. images, font files, etc,  gshouldo here)
     * MainMenu.jpg
@@ -96,21 +100,17 @@ The Project is broken down into the following file structure:
 
 ### Software Lead - Senih O
 
-<< Worked as integration specialist by... >>
+Senih spent a lot of the early stages of the project researching and attmepting to get a working twitter API. This was accomplished by extensive research on the Tweepy Library and it's interaction with twitters API. Once that was done, most of his work was primarily focused on overseeing the vision and execution of the program's mechanics and GUI, along with integrating the back-end classes and data with the GUI on the front end.
 
 ### Front End Specialist - Clay B
 
-Front-end lead conducted significant research on making GUIs in pygame and the pygame-menus library. We wanted to ensure the menus we created were high quality and functional, so Clay researched a libarary to help us with this. In addition, Clay wrote the GUI portions of our controller class, coded our menus, and was responsible for placing our models on screen.
+Clay lead conducted significant research on making GUIs in pygame and the pygame-menus library. We wanted to ensure the menus we created were high quality and functional, so Clay researched a libarary to help us with this. In addition, Clay wrote the GUI portions of our controller class, coded our menus, and was responsible for placing our models on screen.
 
 ### Back End Specialist - Sharan S
 
-Back-end was responsible for taking raw data from API and formatting it to work with rest of program. The base trends and comparison trends are random items from the list in trends.json, and if they were the same, the comparison trend would be a different trend. Back end also had to make sure the userinfo.json file would be updated if a new player is added or if there is a new high score is reached. 
+Sharan was responsible for taking raw data from API and formatting it to work with rest of program. The base trends and comparison trends are random items from the list in trends.json, and if they were the same, the comparison trend would be a different trend. Back end also had to make sure the userinfo.json file would be updated if a new player is added or if there is a new high score is reached. 
 
 ## Testing *(Software Lead)*
-* << Describe your testing strategy for your project. >>
-    * << Example >>
-
-* Your ATP
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
