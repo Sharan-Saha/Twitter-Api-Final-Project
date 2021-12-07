@@ -85,7 +85,7 @@ Front-end lead conducted significant research on making GUIs in pygame and the p
 
 ### Back End Specialist - Sharan S
 
-<< The back end specialist... >>
+Back-end was responsible for taking raw data from API and formatting it to work with rest of program. The base trends and comparison trends are random items from the list in trends.json, and if they were the same, the comparison trend would be a different trend. Back end also had to make sure the userinfo.json file would be updated if a new player is added or if there is a new high score is reached. 
 
 ## Testing *(Software Lead)*
 * << Describe your testing strategy for your project. >>
