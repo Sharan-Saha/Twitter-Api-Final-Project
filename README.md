@@ -29,14 +29,14 @@ We will start off working with pygame and once we have work that fulfills the re
 	* ![Settings Concept](assets/Settings.jpg)
 	
 * Final GUI 
-	* ![Main Menu Light](assets/LightMainMenuFinal)
-	* ![Main Menu Dark](assets/DarkMainMenuFinal)
-	* ![Leaderboard Light](assets/LightLeaderboardFinal)
-	* ![Leaderboard Dark](assets/DarkLeaderboardFinal)
-	* ![Selection Light](assets/LightSelectionFinal)
-	* ![Selection Dark](assets/LightSelectionFinal)
-	* ![Game Over Light](assets/LightGameOverFinal)
-	* ![Game Over Dark](assets/DarkGameOverFinal)
+	* ![Main Menu Light](assets/LightMainMenuFinal.png)
+	* ![Main Menu Dark](assets/DarkMainMenuFinal.png)
+	* ![Leaderboard Light](assets/LightLeaderboardFinal.png)
+	* ![Leaderboard Dark](assets/DarkLeaderboardFinal.png)
+	* ![Selection Light](assets/LightSelectionFinal.png)
+	* ![Selection Dark](assets/LightSelectionFinal.png)
+	* ![Game Over Light](assets/LightGameOverFinal.png)
+	* ![Game Over Dark](assets/DarkGameOverFinal.png)
 
 	* Main Menu:Presents our game's title, along with buttons allowing the user to start the game, view a leaderboard, or access settings.
 	* Selection:Users are presented with two tweets, and must chose which has more tweets. They may click either option, or access settings. Orininally the options would have photos, but some trending twitter topics are controversial so this idea was scrapped.
