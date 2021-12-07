@@ -34,7 +34,7 @@ We will start off working with pygame and once we have work that fulfills the re
 	* ![Leaderboard Light](assets/LightLeaderboardFinal.png)
 	* ![Leaderboard Dark](assets/DarkLeaderboardFinal.png)
 	* ![Selection Light](assets/LightSelectionFinal.png)
-	* ![Selection Dark](assets/LightSelectionFinal.png)
+	* ![Selection Dark](assets/DarkSelectionFinal.png)
 	* ![Game Over Light](assets/LightGameOverFinal.png)
 	* ![Game Over Dark](assets/DarkGameOverFinal.png)
 
