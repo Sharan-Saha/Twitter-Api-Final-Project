@@ -39,16 +39,27 @@ We will start off working with pygame and once we have work that fulfills the re
 
 ## Program Design *(Backend Specialist)*
 * Non-Standard libraries
-    * << You should have a list of any additional libraries or modules used (pygame, request) beyond non-standard python. >>
-    * For each additional module you should include
-        * url for the module documentation
-        * a short description of the module
+    * pygame 
+        * https://www.pygame.org/ 
+        * Module set incorporating many common game development functions into python. Handles all the graphical elements in our code
+    * Tweepy 
+        * https://www.tweepy.org/
+        * Easy to use python library for accessing the Twitter API. Returns raw data for real time trending topics in the Twitter app. 
+    * Pygame Menus
+        * https://pypi.org/project/pygame-menu/
+        * Library for creating menus and GUIS. Gives people the ability to add visuals to their code. 
+        
+    
+    *
 * Class Interface Design
     * << A simple drawing that shows the class relationships in your code (see below for an example). >>
         * ![general structure](assets/general_structure.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
-    * << You should have a list of each of your classes with a description. >>
+    * apiCall
+    * button 
+    * label
+    * Controller
 
 ## Project Structure *(Software Lead)*
 
