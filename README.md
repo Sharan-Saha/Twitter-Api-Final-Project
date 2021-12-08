@@ -1,13 +1,12 @@
-:warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 # CS110 Project Proposal
 # Moore or Less
 ## CS 110 Final Project
 ### Fall, 2021
 ### [Assignment Description](https://docs.google.com/document/d/1H4R6yLL7som1lglyXWZ04RvTp_RvRFCCBn6sqv-82ps/edit#)
 
-<< [https://github.com/<repo>](#) >>
+https://github.com/bucs110a0fall21/final-project-moore-or-less
 
-<< [link to demo presentation slides](#) >>
+https://docs.google.com/presentation/d/1RFF7jtQ8mmYTO2pxIF82ZRfg1pzqKFCi5o5XCRPRL84/edit?usp=sharing
 
 ### Team: Moore or less
 #### Senih Okuyucu, Sharan Saha, Clayton Battle
@@ -50,27 +49,26 @@ We will start off working with pygame and once we have work that fulfills the re
 * Non-Standard libraries
     * pygame 
         * https://www.pygame.org/ 
-        * Module set incorporating many common game development functions into python. Handles all the graphical elements in our code
+        * Module incorporating many common game development functions into python. Handles all the graphical elements in our code.
     * Tweepy 
         * https://www.tweepy.org/
         * Easy to use python library for accessing the Twitter API. Returns raw data for real time trending topics in the Twitter app. 
     * Pygame Menus
         * https://pypi.org/project/pygame-menu/
-        * Library for creating menus and GUIS. Gives people the ability to add visuals to their code. 
+        * Library for creating menus and GUIS. Gives people the ability to easily add visuals and menus to their code. 
         
-    
-    *
 * Class Interface Design
     * ![general structure](assets/general_structure.jpg)
-    * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
+
 * Classes
     * apiCall - Handles getting all the raw API data from the Twitter API and filters the data that can be worked with and adds it to trends.json 
-    * button - Updates the screen and label with it is clicked. 
-    * label - Displays the base and comparison trends and trends update when button is clicked on screen. 
+    * apiCodes - Holds our api keys, twitter access tokens, and returns them when assignValues is called.
+    * button - Updates the screen and label when it is clicked. 
+    * label - Displays the base and comparison trends and trends update when a button is clicked on screen. 
     * Controller 
-        * Responds to every event in the GUI, calls apiCall when the game starts and takes the data from trends.json 
+        * Responds to every event in the GUI, runs our menus, calls apiCall when the game starts, and takes the data from trends.json 
         * Handles all the logic of base and comparison trends and makes sure they are appropriately displayed in the buttons/labels
-        * Responds to when a new user is added or if a new high score for an existing user is achieved and updates userinfo.json with that  information 
+        * When a new user is added or if a new high score for an existing user is achieved, userinfo.json is updated with that information 
 
 ## Project Structure 
 
@@ -87,7 +85,6 @@ The Project is broken down into the following file structure:
     * trends.json
     * userinfo.json
 * assets
-    * <all of your media, i.e. images, font files, etc,  gshouldo here)
     * MainMenu.jpg
     * Settings.jpg
     * general_structure.jpg
@@ -107,6 +104,7 @@ The Project is broken down into the following file structure:
     * LightLeaderboardFinal.png
     * LightMainMenuFinal.png
     * LightSelectionFinal.png
+    
 
 ***
 
@@ -125,15 +123,18 @@ Clay lead conducted significant research on making GUIs in pygame and the pygame
 Sharan was responsible for taking raw data from API and formatting it to work with rest of program. The base trends and comparison trends are random items from the list in trends.json, and if they were the same, the comparison trend would be a different trend. Back end also had to make sure the userinfo.json file would be updated if a new player is added or if there is a new high score is reached. 
 
 ## Testing 
+* When testing the game, there were two primary functions we needed to test, menu changes and game mechanics.  To test to ensure the menus worked, we would click through each menu option on every screen to ensure each button had the correct functionality. Once all the menus were working and the subloops were seamlessly changing, we began to test the game mechanics. To ensure that the buttons actually worked, we added print statements to print out text whenever a button was pushed. Once we got the labels and buttons to display the correct text, we ensured our program was running correctly by comparing our answers in the live game to the trends.json file. To summarize, we tested every part of our program via trial and error. When a new feature was added, the code was run and we checked to make sure the display and math calculations matched what we expected.
+    * Menu example: When our dark/light theme changing option was added, we needed to ensure it worked. To do this, we first swapped the theme, then clicked through every other menu to ensure it was blitted onto the screen with the correct colors. The option was then toggled once again, with every menu checked to ensure that the code was working as intended.
+    * Game example: When we added our buttons for the first time, we needed to ensure they completed the correct actions. To check this, we made one button temporarily print something and add score to the player's account, while the other ended the game. This system worked well, as clicking both buttons worked as intended and verifed that we could now link the logic of our game to the buttons.
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
-|  1  | Open terminal, navigate to folder, and type, “python3 main.py" | More or Less starts and shows the Main Menu GUI |          |
+|  1  | Open terminal, navigate to folder, and type, "python3 main.py" | More or Less starts and shows the Main Menu GUI |          |
 |  2  | Enter username  | Username updates to the user input |                 |
-|  3  | Play game by clicking "Play" with mouse |  runs apiCall.py file which updates the trends.json, starts GameLoop and transitions to game GUI, showing a base trend with a tweet count and a comparison trend, both pulled from the trends.json file|     |
-|  4  | User presses the correct button in game GUI|returns new comparison trend and makes current comparison trend into base trend|     |
-|  5  | User presses the incorect button in game GUI| ends game and shows the end game GUI|       |
-|  6  | click on the "Leaderboard" option in the Game Over menu" | GUI transitions to leaderboard, shows top ten high scores |       |
+|  3  | Play game by clicking "Play" with mouse |  Runs apiCall.py file which updates the trends.json if it has been more than 15 minutes since it was last updated, starts GameLoop and transitions to game GUI, showing a base trend with a tweet count and a comparison trend, both pulled from the trends.json file|     |
+|  4  | User presses the correct button in game GUI|Returns new comparison trend and makes current comparison trend into base trend|     |
+|  5  | User presses the incorect button in game GUI| Ends game and shows the end game GUI, displaying the player's score and the tweet count for the base and comparison trends|       |
+|  6  | click on the "Leaderboard" option in the Game Over menu | GUI transitions to leaderboard, shows top ten high scores |       |
 |  7  | click "Main Menu" in the Leaderboard GUI | Transitions to the Main Menu GUI again |       |
-|  8  | click "theme" in the Main Menu | toggles between Light Mode and Dark Mode |       |
-|  9  | click "quit" in the Main Menu | exits program |     |
+|  8  | click "Theme" in the Main Menu | Toggles between Light Mode and Dark Mode, swithcing the GUI to either lighter or darker colors |       |
+|  9  | click "Quit" in the Main Menu | Exits program without error|     |

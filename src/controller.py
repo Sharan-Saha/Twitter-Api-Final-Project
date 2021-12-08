@@ -191,7 +191,7 @@ class Controller:
         self.comparison_number = random.randrange(0, len(self.deck))
         self.trendCheck()
         
-        #Renders the text for moore and less buttons, and assigns the text centers, and blits them on screen
+        #Renders the text for moore and less buttons and assigns the text centers
         moore_button_txt = self.default_font.render(self.moore_button.text, True, (0,0,0))
         less_button_txt = self.default_font.render(self.less_button.text, True, (0,0,0))
         moore_button_rect = moore_button_txt.get_rect()
