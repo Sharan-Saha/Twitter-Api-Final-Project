@@ -64,10 +64,13 @@ We will start off working with pygame and once we have work that fulfills the re
     * ![general structure](assets/general_structure.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
-    * apiCall
-    * button 
-    * label
-    * Controller
+    * apiCall - Handles getting all the raw API data from the Twitter API and filters the data that can be worked with and adds it to trends.json 
+    * button - Updates the screen and label with it is clicked. 
+    * label - Displays the base and comparison trends and trends update when button is clicked on screen. 
+    * Controller 
+        * Responds to every event in the GUI, calls apiCall when the game starts and takes the data from trends.json 
+        * Handles all the logic of base and comparison trends and makes sure they are appropriately displayed in the buttons/labels
+        * Responds to when a new user is added or if a new high score for an existing user is achieved and updates userinfo.json with that  information 
 
 ## Project Structure 
 
