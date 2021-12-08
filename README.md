@@ -131,7 +131,7 @@ Sharan was responsible for taking raw data from API and formatting it to work wi
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
 |  1  | Open terminal, navigate to folder, and type, "python3 main.py" | More or Less starts and shows the Main Menu GUI |          |
-|  2  | Enter username  | Username updates to the user input |                 |
+|  2  | In the "Name:" section of the menu, the player inputs their username   | Username updates to the exact user input, but will not exceed 10 characters |                 |
 |  3  | Play game by clicking "Play" with mouse |  Runs apiCall.py file which updates the trends.json if it has been more than 15 minutes since it was last updated, starts GameLoop and transitions to game GUI, showing a base trend with a tweet count and a comparison trend, both pulled from the trends.json file|     |
 |  4  | User presses the correct button in game GUI|Returns new comparison trend and makes current comparison trend into base trend|     |
 |  5  | User presses the incorect button in game GUI| Ends game and shows the end game GUI, displaying the player's score and the tweet count for the base and comparison trends|       |
