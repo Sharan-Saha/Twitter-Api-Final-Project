@@ -282,7 +282,7 @@ class Controller:
 
         #Updates the label to include new information
         self.question_label_b.update(f"{self.base_name} has {self.base_count} tweets.")
-        self.question_label_c.update(f"Does {self.comparison_name} have moore or less tweets?")
+        self.question_label_c.update(f"Does {self.comparison_name} have moore or less?")
         
         #updates highscore to match player data
         if self.player_name in self.leaderboard:
