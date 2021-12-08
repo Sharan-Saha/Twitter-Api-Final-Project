@@ -195,9 +195,9 @@ class Controller:
         moore_button_txt = self.default_font.render(self.moore_button.text, True, (0,0,0))
         less_button_txt = self.default_font.render(self.less_button.text, True, (0,0,0))
         moore_button_rect = moore_button_txt.get_rect()
-        moore_button_rect.center = (self.width / 5.25, (self.height / 1.48 ))
+        moore_button_rect.center = (self.width / 5.25, (self.height / 1.45 ))
         less_button_rect = less_button_txt.get_rect()
-        less_button_rect.center = (self.width / 1.25, (self.height / 1.48))
+        less_button_rect.center = (self.width / 1.255, (self.height / 1.45))
             
         
 
