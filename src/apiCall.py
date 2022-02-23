@@ -29,6 +29,4 @@ class ApiCall:
             with open(self.path, "w") as outfile:
                 json.dump(self.trends, outfile)        
         
-        print(self.trends)
-        print(type(self.trends))
 

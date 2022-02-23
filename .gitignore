@@ -1,0 +1,5 @@
+src/__pycache__
+src/trends.json
+src/userinfo.json
+.DS_Store
+test.py

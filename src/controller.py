@@ -178,7 +178,7 @@ class Controller:
         args:None
         return:None
         '''
-        self.apiCall.getTrends() #Refreshes trends if more than 15 minutes have passed
+        self.apiCall.getTrends() #Refreshes trends 
         
         
         with open("src/trends.json") as trends: #reads the trends, makes a deck out with them, and removes the timestamp.
